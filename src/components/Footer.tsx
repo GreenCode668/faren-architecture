@@ -11,20 +11,20 @@ const Footer: React.FC = () => {
 
   const footerLinks = {
     services: [
-      { label: 'Architecture Design', href: '#services' },
-      { label: 'Interior Design', href: '#services' },
-      { label: 'Project Management', href: '#services' },
-      { label: 'Consultation', href: '#services' },
+      { label: 'Residential Photography', href: '#services' },
+      { label: 'Commercial Photography', href: '#services' },
+      { label: 'Drone Photography', href: '#services' },
+      { label: 'Virtual Tours', href: '#services' },
     ],
     company: [
-      { label: 'About Us', href: '#about' },
-      { label: 'Our Team', href: '#team' },
-      { label: 'Portfolio', href: '#projects' },
-      { label: 'Testimonials', href: '#testimonials' },
+      { label: 'About Marcos', href: '/about' },
+      { label: 'Portfolio', href: '/portfolio' },
+      { label: 'Resources', href: '/resources' },
+      { label: 'Contact', href: '#contact' },
     ],
     resources: [
-      { label: 'Blog', href: '#blog' },
-      { label: 'Case Studies', href: '#projects' },
+      { label: 'Photography Tips', href: '#blog' },
+      { label: 'Pricing Guide', href: '#pricing' },
       { label: 'Privacy Policy', href: '#' },
       { label: 'Terms of Service', href: '#' },
     ],
@@ -60,31 +60,31 @@ const Footer: React.FC = () => {
             >
               <div className="flex items-center space-x-2 mb-6">
                 <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-xl">F</span>
+                  <span className="text-white font-bold text-xl">📸</span>
                 </div>
-                <span className="text-2xl font-display font-bold">Faren</span>
+                <span className="text-2xl font-display font-bold">Marcos Borges</span>
               </div>
 
               <p className="text-white/70 mb-6 leading-relaxed">
-                Creating extraordinary spaces for modern living through innovative
-                architecture and design solutions that inspire and transform.
+                Professional real estate photography that transforms properties into
+                compelling visual stories, helping agents sell faster and buyers fall in love.
               </p>
 
               {/* Contact Info */}
               <div className="space-y-3">
                 <div className="flex items-center space-x-3">
                   <Mail className="w-4 h-4 text-accent" />
-                  <span className="text-white/70">hello@faren.com</span>
+                  <span className="text-white/70">mail@mborges.dk</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Phone className="w-4 h-4 text-accent" />
-                  <span className="text-white/70">+1 (555) 123-4567</span>
+                  <span className="text-white/70">26 99 88 21</span>
                 </div>
                 <div className="flex items-start space-x-3">
                   <MapPin className="w-4 h-4 text-accent mt-1" />
                   <span className="text-white/70">
-                    123 Design Street<br />
-                    Creative City, CC 12345
+                    Denmark & European Markets<br />
+                    CVR no.: 29956170
                   </span>
                 </div>
               </div>
@@ -188,7 +188,7 @@ const Footer: React.FC = () => {
                 viewport={{ once: true }}
                 className="text-white/70 text-sm"
               >
-                © {currentYear} Faren Architecture. All rights reserved.
+                © {currentYear} Marcos Borges. All rights reserved.
               </motion.div>
 
               {/* Social Links */}

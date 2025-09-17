@@ -1,13 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, UserPlus, LogIn, Sun, Moon, Globe, LogOut, User } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 import { navItems } from '../data/mockData';
 import { cn } from '../utils/cn';
+import { useAuth } from '../contexts/AuthContext';
+import Auth from './Auth';
 
 const Header: React.FC = () => {
+  const { isAuthenticated, user, logout } = useAuth();
+  const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [currentLanguage, setCurrentLanguage] = useState('EN');
+  const [showAuth, setShowAuth] = useState(false);
+  const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,6 +38,35 @@ const Header: React.FC = () => {
     setActiveDropdown(null);
   };
 
+  const isActivePath = (href: string) => {
+    if (href === '/' && location.pathname === '/') return true;
+    if (href !== '/' && location.pathname === href) return true;
+    return false;
+  };
+
+  const handleRegistration = () => {
+    setAuthMode('register');
+    setShowAuth(true);
+  };
+
+  const handleSignup = () => {
+    setAuthMode('login');
+    setShowAuth(true);
+  };
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+    console.log('Dark mode toggled:', !isDarkMode);
+  };
+
+  const toggleLanguage = () => {
+    const languages = ['EN', 'ES', 'FR', 'DE'];
+    const currentIndex = languages.indexOf(currentLanguage);
+    const nextIndex = (currentIndex + 1) % languages.length;
+    setCurrentLanguage(languages[nextIndex]);
+    console.log('Language changed to:', languages[nextIndex]);
+  };
+
   return (
     <>
       <motion.header
@@ -45,24 +83,26 @@ const Header: React.FC = () => {
         <div className="container-custom">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <motion.div
-              className="flex items-center space-x-2"
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.2 }}
-            >
-              <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">F</span>
-              </div>
-              <span className={cn(
-                'text-2xl font-display font-bold transition-colors duration-300',
-                isScrolled ? 'text-dark' : 'text-white'
-              )}>
-                Faren
-              </span>
-            </motion.div>
+            <Link to="/">
+              <motion.div
+                className="flex items-center space-x-2"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center">
+                  <span className="text-white font-bold text-xl">📸</span>
+                </div>
+                <span className={cn(
+                  'text-2xl font-display font-bold transition-colors duration-300',
+                  isScrolled ? 'text-dark' : 'text-white'
+                )}>
+                  Marcos Borges
+                </span>
+              </motion.div>
+            </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-8">
+            <nav className="hidden lg:flex items-center space-x-4">
               {navItems.map((item) => (
                 <div
                   key={item.label}
@@ -70,20 +110,39 @@ const Header: React.FC = () => {
                   onMouseEnter={() => setActiveDropdown(item.label)}
                   onMouseLeave={() => setActiveDropdown(null)}
                 >
-                  <button
-                    onClick={() => handleNavClick(item.href)}
-                    className={cn(
-                      'flex items-center space-x-1 py-2 px-4 rounded-full transition-all duration-300 font-medium',
-                      isScrolled
-                        ? 'text-dark hover:text-accent hover:bg-accent/10'
-                        : 'text-white hover:text-accent hover:bg-white/10'
-                    )}
-                  >
-                    <span>{item.label}</span>
-                    {item.children && (
-                      <ChevronDown className="w-4 h-4 transition-transform duration-200" />
-                    )}
-                  </button>
+                  {item.href.startsWith('#') ? (
+                    <button
+                      onClick={() => handleNavClick(item.href)}
+                      className={cn(
+                        'flex items-center space-x-1 py-2 px-4 rounded-full transition-all duration-300 font-medium',
+                        isScrolled
+                          ? 'text-dark hover:text-accent hover:bg-accent/10'
+                          : 'text-white hover:text-accent hover:bg-white/10'
+                      )}
+                    >
+                      <span>{item.label}</span>
+                      {item.children && (
+                        <ChevronDown className="w-4 h-4 transition-transform duration-200" />
+                      )}
+                    </button>
+                  ) : (
+                    <Link
+                      to={item.href}
+                      className={cn(
+                        'flex items-center space-x-1 py-2 px-4 rounded-full transition-all duration-300 font-medium',
+                        isActivePath(item.href)
+                          ? 'text-accent bg-accent/10'
+                          : isScrolled
+                          ? 'text-dark hover:text-accent hover:bg-accent/10'
+                          : 'text-white hover:text-accent hover:bg-white/10'
+                      )}
+                    >
+                      <span>{item.label}</span>
+                      {item.children && (
+                        <ChevronDown className="w-4 h-4 transition-transform duration-200" />
+                      )}
+                    </Link>
+                  )}
 
                   {/* Dropdown Menu */}
                   <AnimatePresence>
@@ -96,13 +155,23 @@ const Header: React.FC = () => {
                         className="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-100 py-2 z-50"
                       >
                         {item.children.map((child) => (
-                          <button
-                            key={child.label}
-                            onClick={() => handleNavClick(child.href)}
-                            className="w-full text-left px-4 py-3 text-dark hover:text-accent hover:bg-accent/5 transition-colors duration-200"
-                          >
-                            {child.label}
-                          </button>
+                          child.href.startsWith('#') ? (
+                            <button
+                              key={child.label}
+                              onClick={() => handleNavClick(child.href)}
+                              className="w-full text-left px-4 py-3 text-dark hover:text-accent hover:bg-accent/5 transition-colors duration-200"
+                            >
+                              {child.label}
+                            </button>
+                          ) : (
+                            <Link
+                              key={child.label}
+                              to={child.href}
+                              className="block px-4 py-3 text-dark hover:text-accent hover:bg-accent/5 transition-colors duration-200"
+                            >
+                              {child.label}
+                            </Link>
+                          )
                         ))}
                       </motion.div>
                     )}
@@ -111,14 +180,109 @@ const Header: React.FC = () => {
               ))}
             </nav>
 
-            {/* CTA Button */}
-            <div className="hidden lg:flex items-center space-x-4">
-              <button
-                onClick={() => handleNavClick('#contact')}
-                className="btn-primary"
+            {/* Action Buttons */}
+            <div className="hidden lg:flex items-center space-x-2">
+              {isAuthenticated ? (
+                <>
+                  {/* User Info */}
+                  <div className="flex items-center space-x-3 px-3 py-2 rounded-lg bg-accent/10">
+                    <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center">
+                      <User className="w-4 h-4 text-white" />
+                    </div>
+                    <div className="text-sm">
+                      <p className={cn("font-medium", isScrolled ? "text-dark" : "text-white")}>
+                        {user?.firstName} {user?.lastName}
+                      </p>
+                      <p className={cn("text-xs", isScrolled ? "text-gray-600" : "text-white/80")}>
+                        {user?.companyName}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Logout Button */}
+                  <motion.button
+                    onClick={logout}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={cn(
+                      'p-2 rounded-lg transition-all duration-300 hover:bg-red-500 hover:text-white',
+                      isScrolled
+                        ? 'text-dark hover:bg-red-500'
+                        : 'text-white hover:bg-red-500'
+                    )}
+                    title="Logout"
+                  >
+                    <LogOut className="w-5 h-5" />
+                  </motion.button>
+                </>
+              ) : (
+                <>
+                  {/* Registration Button */}
+                  <motion.button
+                    onClick={handleRegistration}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={cn(
+                      'p-2 rounded-lg transition-all duration-300 hover:bg-accent hover:text-white',
+                      isScrolled
+                        ? 'text-dark hover:bg-accent'
+                        : 'text-white hover:bg-accent'
+                    )}
+                    title="Register"
+                  >
+                    <UserPlus className="w-5 h-5" />
+                  </motion.button>
+
+                  {/* Signup Button */}
+                  <motion.button
+                    onClick={handleSignup}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={cn(
+                      'p-2 rounded-lg transition-all duration-300 hover:bg-accent hover:text-white',
+                      isScrolled
+                        ? 'text-dark hover:bg-accent'
+                        : 'text-white hover:bg-accent'
+                    )}
+                    title="Sign Up"
+                  >
+                    <LogIn className="w-5 h-5" />
+                  </motion.button>
+                </>
+              )}
+
+              {/* Dark/Light Mode Toggle */}
+              <motion.button
+                onClick={toggleDarkMode}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className={cn(
+                  'p-2 rounded-lg transition-all duration-300 hover:bg-accent hover:text-white',
+                  isScrolled
+                    ? 'text-dark hover:bg-accent'
+                    : 'text-white hover:bg-accent'
+                )}
+                title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
               >
-                Get Started
-              </button>
+                {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              </motion.button>
+
+              {/* Language Selection */}
+              <motion.button
+                onClick={toggleLanguage}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className={cn(
+                  'p-2 rounded-lg transition-all duration-300 hover:bg-accent hover:text-white flex items-center space-x-1',
+                  isScrolled
+                    ? 'text-dark hover:bg-accent'
+                    : 'text-white hover:bg-accent'
+                )}
+                title="Change Language"
+              >
+                <Globe className="w-5 h-5" />
+                <span className="text-xs font-medium">{currentLanguage}</span>
+              </motion.button>
             </div>
 
             {/* Mobile Menu Button */}
@@ -169,10 +333,10 @@ const Header: React.FC = () => {
                 <div className="flex items-center justify-between mb-8">
                   <div className="flex items-center space-x-2">
                     <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center">
-                      <span className="text-white font-bold">F</span>
+                      <span className="text-white font-bold">📸</span>
                     </div>
                     <span className="text-xl font-display font-bold text-dark">
-                      Faren
+                      Marcos Borges
                     </span>
                   </div>
                   <button
@@ -186,28 +350,43 @@ const Header: React.FC = () => {
                 <nav className="space-y-2">
                   {navItems.map((item) => (
                     <div key={item.label}>
-                      <button
-                        onClick={() => {
-                          if (item.children) {
-                            setActiveDropdown(
-                              activeDropdown === item.label ? null : item.label
-                            );
-                          } else {
-                            handleNavClick(item.href);
-                          }
-                        }}
-                        className="w-full flex items-center justify-between py-3 px-4 text-dark hover:text-accent hover:bg-accent/5 rounded-lg transition-all duration-200"
-                      >
-                        <span className="font-medium">{item.label}</span>
-                        {item.children && (
-                          <ChevronDown
-                            className={cn(
-                              'w-4 h-4 transition-transform duration-200',
-                              activeDropdown === item.label ? 'rotate-180' : ''
-                            )}
-                          />
-                        )}
-                      </button>
+                      {item.href.startsWith('#') || item.children ? (
+                        <button
+                          onClick={() => {
+                            if (item.children) {
+                              setActiveDropdown(
+                                activeDropdown === item.label ? null : item.label
+                              );
+                            } else {
+                              handleNavClick(item.href);
+                            }
+                          }}
+                          className="w-full flex items-center justify-between py-3 px-4 text-dark hover:text-accent hover:bg-accent/5 rounded-lg transition-all duration-200"
+                        >
+                          <span className="font-medium">{item.label}</span>
+                          {item.children && (
+                            <ChevronDown
+                              className={cn(
+                                'w-4 h-4 transition-transform duration-200',
+                                activeDropdown === item.label ? 'rotate-180' : ''
+                              )}
+                            />
+                          )}
+                        </button>
+                      ) : (
+                        <Link
+                          to={item.href}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className={cn(
+                            "w-full flex items-center justify-between py-3 px-4 rounded-lg transition-all duration-200",
+                            isActivePath(item.href)
+                              ? "text-accent bg-accent/5"
+                              : "text-dark hover:text-accent hover:bg-accent/5"
+                          )}
+                        >
+                          <span className="font-medium">{item.label}</span>
+                        </Link>
+                      )}
 
                       {/* Mobile Dropdown */}
                       <AnimatePresence>
@@ -221,13 +400,24 @@ const Header: React.FC = () => {
                           >
                             <div className="pl-4 space-y-1">
                               {item.children.map((child) => (
-                                <button
-                                  key={child.label}
-                                  onClick={() => handleNavClick(child.href)}
-                                  className="w-full text-left py-2 px-4 text-light hover:text-accent hover:bg-accent/5 rounded-lg transition-all duration-200"
-                                >
-                                  {child.label}
-                                </button>
+                                child.href.startsWith('#') ? (
+                                  <button
+                                    key={child.label}
+                                    onClick={() => handleNavClick(child.href)}
+                                    className="w-full text-left py-2 px-4 text-light hover:text-accent hover:bg-accent/5 rounded-lg transition-all duration-200"
+                                  >
+                                    {child.label}
+                                  </button>
+                                ) : (
+                                  <Link
+                                    key={child.label}
+                                    to={child.href}
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    className="block py-2 px-4 text-light hover:text-accent hover:bg-accent/5 rounded-lg transition-all duration-200"
+                                  >
+                                    {child.label}
+                                  </Link>
+                                )
                               ))}
                             </div>
                           </motion.div>
@@ -238,18 +428,67 @@ const Header: React.FC = () => {
                 </nav>
 
                 <div className="mt-8 pt-8 border-t border-gray-200">
-                  <button
-                    onClick={() => handleNavClick('#contact')}
-                    className="btn-primary w-full"
-                  >
-                    Get Started
-                  </button>
+                  <div className="grid grid-cols-2 gap-3">
+                    {/* Registration Button */}
+                    <motion.button
+                      onClick={handleRegistration}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="flex items-center justify-center space-x-2 p-3 rounded-lg bg-accent/10 text-accent hover:bg-accent hover:text-white transition-all duration-300"
+                    >
+                      <UserPlus className="w-4 h-4" />
+                      <span className="text-sm font-medium">Register</span>
+                    </motion.button>
+
+                    {/* Signup Button */}
+                    <motion.button
+                      onClick={handleSignup}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="flex items-center justify-center space-x-2 p-3 rounded-lg bg-accent/10 text-accent hover:bg-accent hover:text-white transition-all duration-300"
+                    >
+                      <LogIn className="w-4 h-4" />
+                      <span className="text-sm font-medium">Sign Up</span>
+                    </motion.button>
+
+                    {/* Dark/Light Mode Toggle */}
+                    <motion.button
+                      onClick={toggleDarkMode}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="flex items-center justify-center space-x-2 p-3 rounded-lg bg-accent/10 text-accent hover:bg-accent hover:text-white transition-all duration-300"
+                    >
+                      {isDarkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                      <span className="text-sm font-medium">
+                        {isDarkMode ? 'Light' : 'Dark'}
+                      </span>
+                    </motion.button>
+
+                    {/* Language Selection */}
+                    <motion.button
+                      onClick={toggleLanguage}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="flex items-center justify-center space-x-2 p-3 rounded-lg bg-accent/10 text-accent hover:bg-accent hover:text-white transition-all duration-300"
+                    >
+                      <Globe className="w-4 h-4" />
+                      <span className="text-sm font-medium">{currentLanguage}</span>
+                    </motion.button>
+                  </div>
                 </div>
               </div>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Auth Modal */}
+      <Auth
+        isOpen={showAuth}
+        onClose={() => setShowAuth(false)}
+        mode={authMode}
+        onSwitchMode={setAuthMode}
+      />
     </>
   );
 };

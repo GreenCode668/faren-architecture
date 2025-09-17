@@ -64,3 +64,41 @@ export interface NavItem {
   href: string;
   children?: NavItem[];
 }
+
+export interface BrokerLoginForm {
+  email: string;
+  password: string;
+  rememberMe: boolean;
+}
+
+export interface BrokerRegistrationForm {
+  email: string;
+  phone: string;
+  companyName: string;
+  brokerLicense: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+  confirmPassword: string;
+  acceptTerms: boolean;
+  acceptPrivacy: boolean;
+  marketingConsent: boolean;
+  verificationMethod: 'email' | 'sms';
+}
+
+export interface OTPVerification {
+  code: string;
+  expiresAt: Date;
+  attempts: number;
+}
+
+export interface User {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  companyName: string;
+  brokerLicense: string;
+  isVerified: boolean;
+  createdAt: Date;
+}

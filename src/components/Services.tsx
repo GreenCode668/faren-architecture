@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Building, Home, Users, MessageCircle, ArrowRight } from 'lucide-react';
+import { Building, Home, Users, MessageCircle, Camera, Eye, ArrowRight } from 'lucide-react';
 import { services } from '../data/mockData';
 
 const iconMap = {
@@ -8,6 +8,8 @@ const iconMap = {
   Home,
   Users,
   MessageCircle,
+  Camera,
+  Eye,
 };
 
 const Services: React.FC = () => {
@@ -22,13 +24,13 @@ const Services: React.FC = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <p className="section-title">Our Services</p>
+          <p className="section-title">Photography Services</p>
           <h2 className="heading-lg mb-6 max-w-3xl mx-auto">
-            Comprehensive Design Solutions for Every Need
+            Professional Real Estate Photography Solutions
           </h2>
           <p className="text-lg text-light max-w-2xl mx-auto leading-relaxed">
-            From initial concept to final construction, we provide end-to-end
-            architectural and design services that bring your vision to life.
+            From stunning interior shots to breathtaking aerial views, I provide
+            comprehensive photography services that make properties irresistible to buyers.
           </p>
         </motion.div>
 
@@ -98,11 +100,11 @@ const Services: React.FC = () => {
 
           <div className="relative z-10">
             <h3 className="heading-md text-white mb-6">
-              Ready to Start Your Project?
+              Ready to Showcase Your Property?
             </h3>
             <p className="text-lg text-white/80 mb-8 max-w-2xl mx-auto">
-              Let's discuss how we can transform your space with our expert
-              architectural and design services.
+              Let's discuss how professional photography can transform your listings
+              and help your properties sell faster at better prices.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

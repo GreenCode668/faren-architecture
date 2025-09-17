@@ -1,28 +1,50 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
-import Hero from './components/Hero';
-import About from './components/About';
-import Services from './components/Services';
-import Portfolio from './components/Portfolio';
-import Testimonials from './components/Testimonials';
-import Contact from './components/Contact';
 import Footer from './components/Footer';
 import CustomCursor from './components/CustomCursor';
+import Orders from './components/Orders';
+import Home from './pages/Home';
+import AboutMe from './pages/AboutMe';
+import ServicesPage from './pages/ServicesPage';
+import PortfolioPage from './pages/PortfolioPage';
+import ResourcesPage from './pages/ResourcesPage';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
 
-function App() {
+const AppContent = () => {
+  const { isAuthenticated, user } = useAuth();
+
+  if (isAuthenticated && user?.isVerified) {
+    return (
+      <div className="min-h-screen bg-white">
+        <Header />
+        <Orders />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-white custom-cursor">
       <CustomCursor />
       <Header />
-      <main>
-        <Hero />
-        <About />
-        <Services />
-        <Portfolio />
-        <Testimonials />
-        <Contact />
-      </main>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<AboutMe />} />
+        <Route path="/services" element={<ServicesPage />} />
+        <Route path="/portfolio" element={<PortfolioPage />} />
+        <Route path="/resources" element={<ResourcesPage />} />
+      </Routes>
       <Footer />
     </div>
+  );
+};
+
+function App() {
+  return (
+    <AuthProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </AuthProvider>
   );
 }
 

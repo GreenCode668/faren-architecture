@@ -45,30 +45,30 @@ const Contact: React.FC = () => {
   const contactInfo = [
     {
       icon: Mail,
-      title: 'Email Us',
-      description: 'Send us an email anytime',
-      contact: 'hello@faren.com',
-      link: 'mailto:hello@faren.com',
+      title: 'Email Me',
+      description: 'Send me an email anytime',
+      contact: 'mail@mborges.dk',
+      link: 'mailto:mail@mborges.dk',
     },
     {
       icon: Phone,
-      title: 'Call Us',
-      description: 'Mon-Fri from 8am to 5pm',
-      contact: '+1 (555) 123-4567',
-      link: 'tel:+15551234567',
+      title: 'Call Me',
+      description: 'Mon-Fri from 9am to 6pm',
+      contact: '26 99 88 21',
+      link: 'tel:+4526998821',
     },
     {
       icon: MapPin,
-      title: 'Visit Us',
-      description: 'Come say hello at our office',
-      contact: '123 Design Street, Creative City, CC 12345',
+      title: 'Service Area',
+      description: 'Serving Denmark and Europe',
+      contact: 'Denmark & European Markets',
       link: '#',
     },
     {
       icon: Clock,
-      title: 'Working Hours',
-      description: 'Our working hours',
-      contact: 'Mon - Fri: 8AM - 5PM',
+      title: 'Business Info',
+      description: 'CVR registered company',
+      contact: 'CVR no.: 29956170',
       link: '#',
     },
   ];
@@ -86,11 +86,11 @@ const Contact: React.FC = () => {
         >
           <p className="section-title">Get In Touch</p>
           <h2 className="heading-lg mb-6 max-w-3xl mx-auto">
-            Let's Discuss Your Next Project
+            Ready to Capture Your Property's Best Side?
           </h2>
           <p className="text-lg text-light max-w-2xl mx-auto leading-relaxed">
-            Ready to transform your space? We'd love to hear about your project
-            and explore how we can bring your vision to life.
+            Let's discuss your photography needs and how I can help showcase
+            your property with stunning visuals that sell.
           </p>
         </motion.div>
 
@@ -223,9 +223,11 @@ const Contact: React.FC = () => {
                     className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200"
                   >
                     <option value="">Select a subject</option>
-                    <option value="architecture">Architecture Design</option>
-                    <option value="interior">Interior Design</option>
-                    <option value="consultation">Consultation</option>
+                    <option value="residential">Residential Photography</option>
+                    <option value="commercial">Commercial Photography</option>
+                    <option value="drone">Drone/Aerial Photography</option>
+                    <option value="virtual-tour">Virtual Tours</option>
+                    <option value="consultation">Photography Consultation</option>
                     <option value="other">Other</option>
                   </select>
                 </div>
@@ -243,7 +245,7 @@ const Contact: React.FC = () => {
                   required
                   rows={6}
                   className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200 resize-none"
-                  placeholder="Tell us about your project..."
+                  placeholder="Tell me about your property and photography needs..."
                 />
               </div>
 

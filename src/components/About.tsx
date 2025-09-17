@@ -4,32 +4,32 @@ import { CheckCircle, Award, Users, Lightbulb } from 'lucide-react';
 
 const About: React.FC = () => {
   const features = [
-    'Award-winning design team',
-    'Sustainable building practices',
-    'Client-focused approach',
-    'Innovative solutions',
-    'Timely project delivery',
-    'Post-completion support',
+    'Professional-grade equipment',
+    'Same-day photo delivery',
+    'Drone & aerial photography',
+    'Virtual tour creation',
+    'HDR & twilight photography',
+    'Marketing consultation included',
   ];
 
   const achievements = [
     {
       icon: Award,
-      number: '25+',
-      label: 'Design Awards',
-      description: 'International recognition for excellence'
+      number: '15+',
+      label: 'Photography Awards',
+      description: 'Recognition for visual excellence'
     },
     {
       icon: Users,
-      number: '500+',
-      label: 'Happy Clients',
-      description: 'Satisfied customers worldwide'
+      number: '200+',
+      label: 'Agents Served',
+      description: 'Real estate professionals helped'
     },
     {
       icon: Lightbulb,
-      number: '150+',
-      label: 'Projects',
-      description: 'Successful completions'
+      number: '500+',
+      label: 'Properties Shot',
+      description: 'Successfully marketed homes'
     },
   ];
 
@@ -44,19 +44,19 @@ const About: React.FC = () => {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <p className="section-title">About Faren</p>
+            <p className="section-title">About Alex Rivera</p>
             <h2 className="heading-lg mb-6">
-              Creating Extraordinary Spaces for Modern Living
+              Capturing the Soul of Every Property
             </h2>
             <p className="text-lg text-light mb-8 leading-relaxed">
-              With over 12 years of experience in architecture and interior design,
-              Faren has been at the forefront of creating innovative, sustainable, and
-              beautiful spaces that enhance the way people live and work.
+              With over 8 years of experience in real estate photography, I've had the privilege
+              of working with top agents and developers across the country. My passion lies in
+              transforming ordinary spaces into extraordinary visual stories.
             </p>
             <p className="text-light mb-10 leading-relaxed">
-              Our team of passionate architects and designers combines creativity with
-              technical expertise to deliver projects that exceed expectations. We believe
-              that great design has the power to transform lives and communities.
+              From cozy family homes to luxurious estates, I bring an architectural eye and
+              creative vision to every shoot. My goal is simple: help properties sell faster
+              by showcasing their unique character and potential through compelling imagery.
             </p>
 
             {/* Features List */}
@@ -81,7 +81,7 @@ const About: React.FC = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Learn More About Us
+              View My Portfolio
             </motion.button>
           </motion.div>
 
@@ -111,7 +111,7 @@ const About: React.FC = () => {
               viewport={{ once: true }}
               className="absolute -bottom-6 -left-6 bg-accent rounded-2xl p-6 text-white shadow-2xl"
             >
-              <div className="text-4xl font-bold mb-1">12+</div>
+              <div className="text-4xl font-bold mb-1">8+</div>
               <div className="text-sm opacity-90">Years of Experience</div>
             </motion.div>
 
@@ -130,8 +130,8 @@ const About: React.FC = () => {
           className="mt-24 pt-16 border-t border-gray-100"
         >
           <div className="text-center mb-16">
-            <p className="section-title">Our Achievements</p>
-            <h3 className="heading-md">Numbers That Speak for Themselves</h3>
+            <p className="section-title">My Track Record</p>
+            <h3 className="heading-md">Results That Speak for Themselves</h3>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">

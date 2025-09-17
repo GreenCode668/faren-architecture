@@ -8,27 +8,43 @@ const Hero: React.FC = () => {
   const slides = [
     {
       id: 1,
-      title: 'Modern Architecture for Tomorrow',
-      subtitle: 'Creating spaces that inspire',
-      description: 'We design innovative architectural solutions that blend functionality with aesthetic excellence, transforming your vision into reality.',
+      title: 'Modern Architectural Photography',
+      subtitle: 'Capturing contemporary design',
+      description: 'I specialize in showcasing modern buildings and contemporary architecture with dramatic lighting and creative compositions that highlight every design detail.',
       image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
-      stats: { projects: '150+', years: '12+', awards: '25+' }
+      stats: { projects: '500+', years: '8+', clients: '50+' }
     },
     {
       id: 2,
-      title: 'Sustainable Design Solutions',
-      subtitle: 'Building for the future',
-      description: 'Our eco-friendly approach ensures that every project contributes to a sustainable future while maintaining exceptional design standards.',
-      image: 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
-      stats: { projects: '150+', years: '12+', awards: '25+' }
+      title: 'Luxury Interior Photography',
+      subtitle: 'Elegant interior spaces',
+      description: 'From luxury living rooms to designer kitchens, I capture the essence and atmosphere of beautifully designed interior spaces.',
+      image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+      stats: { projects: '500+', years: '8+', clients: '50+' }
     },
     {
       id: 3,
-      title: 'Interior Design Excellence',
-      subtitle: 'Spaces that tell stories',
-      description: 'Transform your interiors with our thoughtful design approach that balances beauty, comfort, and functionality.',
-      image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
-      stats: { projects: '150+', years: '12+', awards: '25+' }
+      title: 'Stunning Property Exteriors',
+      subtitle: 'Showcasing curb appeal',
+      description: 'Professional exterior photography that captures the full beauty and character of residential and commercial properties.',
+      image: 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+      stats: { projects: '500+', years: '8+', clients: '50+' }
+    },
+    {
+      id: 4,
+      title: 'Immersive Virtual Tours',
+      subtitle: 'Interactive property experiences',
+      description: 'State-of-the-art virtual tours that allow potential buyers to explore properties remotely with complete 360-degree views.',
+      image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+      stats: { projects: '500+', years: '8+', clients: '50+' }
+    },
+    {
+      id: 5,
+      title: 'Architectural Drawings & Plans',
+      subtitle: 'Technical documentation',
+      description: 'Professional architectural photography of blueprints, floor plans, and technical drawings for development and marketing purposes.',
+      image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+      stats: { projects: '500+', years: '8+', clients: '50+' }
     },
   ];
 
@@ -116,13 +132,13 @@ const Hero: React.FC = () => {
                   transition={{ duration: 0.8, delay: 1 }}
                 >
                   <button className="btn-primary group">
-                    Explore Projects
+                    Photo Shoot Reservation
                     <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
                   </button>
 
                   <button className="inline-flex items-center justify-center px-8 py-4 text-white border-2 border-white/30 rounded-full hover:bg-white/10 hover:border-white transition-all duration-300 group">
                     <Play className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform duration-300" />
-                    Watch Video
+                    Virtual Tour Demo
                   </button>
                 </motion.div>
 
@@ -137,19 +153,19 @@ const Hero: React.FC = () => {
                     <div className="text-3xl font-bold text-white mb-2">
                       {slide.stats.projects}
                     </div>
-                    <div className="text-white/70 text-sm">Projects</div>
+                    <div className="text-white/70 text-sm">Properties Shot</div>
                   </div>
                   <div className="text-center">
                     <div className="text-3xl font-bold text-white mb-2">
                       {slide.stats.years}
                     </div>
-                    <div className="text-white/70 text-sm">Years</div>
+                    <div className="text-white/70 text-sm">Years Experience</div>
                   </div>
                   <div className="text-center">
                     <div className="text-3xl font-bold text-white mb-2">
-                      {slide.stats.awards}
+                      {slide.stats.clients}
                     </div>
-                    <div className="text-white/70 text-sm">Awards</div>
+                    <div className="text-white/70 text-sm">Happy Clients</div>
                   </div>
                 </motion.div>
               </motion.div>

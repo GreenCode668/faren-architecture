@@ -37,11 +37,11 @@ const Testimonials: React.FC = () => {
             Client Testimonials
           </p>
           <h2 className="heading-lg text-white mb-6 max-w-3xl mx-auto">
-            What Our Clients Say About Us
+            Real Estate Professionals Love My Work
           </h2>
           <p className="text-lg text-white/70 max-w-2xl mx-auto leading-relaxed">
-            Don't just take our word for it. Hear from our satisfied clients who
-            have experienced the Faren difference firsthand.
+            Don't just take my word for it. Hear from real estate agents and
+            property managers who have seen amazing results with my photography.
           </p>
         </motion.div>
 
