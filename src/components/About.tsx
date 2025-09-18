@@ -53,8 +53,8 @@ const About: React.FC = () => {
               Capturing the Soul of Every Property
             </h2>
             <p className="text-lg text-light mb-8 leading-relaxed">
-              With over 8 years of experience in real estate photography, I've had the privilege
-              of working with top agents and developers across Denmark and Europe. My passion lies in
+              With over 17 years of experience in real estate photography, I've had the privilege
+              of working with top agents and developers across Denmark. My passion lies in
               transforming ordinary spaces into extraordinary visual stories.
             </p>
             <p className="text-light mb-10 leading-relaxed">
@@ -160,7 +160,7 @@ const About: React.FC = () => {
               whileHover={{ scale: 1.1, rotate: 5 }}
               className="absolute -bottom-6 -left-6 bg-accent rounded-2xl p-6 text-white shadow-2xl z-10"
             >
-              <div className="text-4xl font-bold mb-1">8+</div>
+              <div className="text-4xl font-bold mb-1">17+</div>
               <div className="text-sm opacity-90">Years of Experience</div>
             </motion.div>
 

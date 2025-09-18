@@ -9,43 +9,38 @@ const Hero: React.FC = () => {
   const slides = [
     {
       id: 1,
-      title: 'Sell Properties 40% Faster',
+      title: 'Sell Properties Faster',
       subtitle: 'Professional Real Estate Photography',
       description: 'Transform your listings with stunning photography that captures buyers\' attention and drives faster sales. Professional images proven to increase viewing requests and reduce time on market.',
-      image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
-      stats: { projects: '500+', years: '8+', clients: '50+' }
+      image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'
     },
     {
       id: 2,
       title: 'Luxury Listings That Stand Out',
       subtitle: 'Premium Interior Photography',
       description: 'Showcase high-end properties with magazine-quality interior photography. Every room photographed to highlight luxury features and create emotional connection with potential buyers.',
-      image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
-      stats: { projects: '500+', years: '8+', clients: '50+' }
+      image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'
     },
     {
       id: 3,
       title: 'Maximum Curb Appeal',
       subtitle: 'Exterior & Drone Photography',
       description: 'Make powerful first impressions with professional exterior and aerial photography. Show property boundaries, neighborhood context, and stunning perspectives that online listings demand.',
-      image: 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
-      stats: { projects: '500+', years: '8+', clients: '50+' }
+      image: 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'
     },
     {
       id: 4,
       title: 'Virtual Tours That Convert',
       subtitle: '360° Interactive Experiences',
       description: 'Give serious buyers the immersive experience they want. Virtual tours increase engagement by 87% and help qualify leads before showings, saving you valuable time.',
-      image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
-      stats: { projects: '500+', years: '8+', clients: '50+' }
+      image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'
     },
     {
       id: 5,
       title: '24-Hour Turnaround Guarantee',
       subtitle: 'Fast, Reliable Service',
       description: 'Get your listings online faster with guaranteed 24-48 hour delivery. Professional editing, multiple formats, and everything you need to market properties immediately.',
-      image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
-      stats: { projects: '500+', years: '8+', clients: '50+' }
+      image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'
     },
   ];
 
@@ -142,33 +137,6 @@ const Hero: React.FC = () => {
                     <Play className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform duration-300" />
                     See Sample Work
                   </button>
-                </motion.div>
-
-                {/* Stats */}
-                <motion.div
-                  className="grid grid-cols-3 gap-8 max-w-md"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 1.2 }}
-                >
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-white mb-2">
-                      {slide.stats.projects}
-                    </div>
-                    <div className="text-white/70 text-sm">Properties Sold</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-white mb-2">
-                      {slide.stats.years}
-                    </div>
-                    <div className="text-white/70 text-sm">Years Experience</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-white mb-2">
-                      {slide.stats.clients}
-                    </div>
-                    <div className="text-white/70 text-sm">Agent Partners</div>
-                  </div>
                 </motion.div>
               </motion.div>
             ))}

@@ -3,10 +3,10 @@ import { motion } from 'framer-motion';
 import { Plus, Search, Filter, Calendar, MapPin, Camera, Clock, CheckCircle, AlertCircle } from 'lucide-react';
 import { cn } from '../utils/cn';
 
-interface Order {
+interface Reservation {
   id: string;
   propertyAddress: string;
-  orderType: 'photography' | 'virtual_tour' | 'drone' | 'combined';
+  reservationType: 'photography' | 'virtual_tour' | 'drone' | 'combined';
   status: 'pending' | 'scheduled' | 'in_progress' | 'completed' | 'cancelled';
   scheduledDate?: Date;
   totalCost: number;
@@ -15,17 +15,17 @@ interface Order {
   priority: 'standard' | 'rush' | 'urgent';
 }
 
-const Orders: React.FC = () => {
+const Reservations: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
-  const [showNewOrderModal, setShowNewOrderModal] = useState(false);
+  const [showNewReservationModal, setShowNewReservationModal] = useState(false);
 
-  // Mock orders data
-  const [orders] = useState<Order[]>([
+  // Mock reservations data
+  const [reservations] = useState<Reservation[]>([
     {
-      id: 'ORD-001',
+      id: 'RES-001',
       propertyAddress: '123 Luxury Ave, Beverly Hills, CA',
-      orderType: 'combined',
+      reservationType: 'combined',
       status: 'scheduled',
       scheduledDate: new Date('2024-01-20'),
       totalCost: 850,
@@ -34,9 +34,9 @@ const Orders: React.FC = () => {
       priority: 'standard',
     },
     {
-      id: 'ORD-002',
+      id: 'RES-002',
       propertyAddress: '456 Modern St, West Hollywood, CA',
-      orderType: 'photography',
+      reservationType: 'photography',
       status: 'completed',
       totalCost: 450,
       createdAt: new Date('2024-01-12'),
@@ -44,9 +44,9 @@ const Orders: React.FC = () => {
       priority: 'rush',
     },
     {
-      id: 'ORD-003',
+      id: 'RES-003',
       propertyAddress: '789 Sunset Blvd, Los Angeles, CA',
-      orderType: 'virtual_tour',
+      reservationType: 'virtual_tour',
       status: 'in_progress',
       scheduledDate: new Date('2024-01-18'),
       totalCost: 650,
@@ -56,7 +56,7 @@ const Orders: React.FC = () => {
     },
   ]);
 
-  const getStatusIcon = (status: Order['status']) => {
+  const getStatusIcon = (status: Reservation['status']) => {
     switch (status) {
       case 'completed':
         return <CheckCircle className="w-4 h-4 text-green-600" />;
@@ -73,7 +73,7 @@ const Orders: React.FC = () => {
     }
   };
 
-  const getStatusColor = (status: Order['status']) => {
+  const getStatusColor = (status: Reservation['status']) => {
     switch (status) {
       case 'completed':
         return 'bg-green-100 text-green-800';
@@ -90,7 +90,7 @@ const Orders: React.FC = () => {
     }
   };
 
-  const getPriorityColor = (priority: Order['priority']) => {
+  const getPriorityColor = (priority: Reservation['priority']) => {
     switch (priority) {
       case 'urgent':
         return 'border-l-red-500';
@@ -103,7 +103,7 @@ const Orders: React.FC = () => {
     }
   };
 
-  const getOrderTypeIcon = (type: Order['orderType']) => {
+  const getReservationTypeIcon = (type: Reservation['reservationType']) => {
     switch (type) {
       case 'photography':
         return <Camera className="w-4 h-4" />;
@@ -118,11 +118,11 @@ const Orders: React.FC = () => {
     }
   };
 
-  const filteredOrders = orders.filter(order => {
-    const matchesSearch = order.propertyAddress.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         order.clientName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         order.id.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesStatus = statusFilter === 'all' || order.status === statusFilter;
+  const filteredReservations = reservations.filter(reservation => {
+    const matchesSearch = reservation.propertyAddress.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         reservation.clientName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         reservation.id.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesStatus = statusFilter === 'all' || reservation.status === statusFilter;
     return matchesSearch && matchesStatus;
   });
 
@@ -133,17 +133,17 @@ const Orders: React.FC = () => {
         <div className="mb-8">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h1 className="text-3xl font-bold text-dark mb-2">Orders Dashboard</h1>
-              <p className="text-gray-600">Manage your photography orders and assignments</p>
+              <h1 className="text-3xl font-bold text-dark mb-2">Reservations Dashboard</h1>
+              <p className="text-gray-600">Manage your photography reservations and assignments</p>
             </div>
             <motion.button
-              onClick={() => setShowNewOrderModal(true)}
+              onClick={() => setShowNewReservationModal(true)}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="flex items-center space-x-2 bg-accent text-white px-6 py-3 rounded-lg font-medium hover:bg-accent/90 transition-colors"
             >
               <Plus className="w-5 h-5" />
-              <span>New Order</span>
+              <span>New Reservation</span>
             </motion.button>
           </div>
 
@@ -157,8 +157,8 @@ const Orders: React.FC = () => {
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 mb-1">Total Orders</p>
-                  <p className="text-2xl font-bold text-dark">{orders.length}</p>
+                  <p className="text-sm text-gray-600 mb-1">Total Reservations</p>
+                  <p className="text-2xl font-bold text-dark">{reservations.length}</p>
                 </div>
                 <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center">
                   <Camera className="w-6 h-6 text-accent" />
@@ -176,7 +176,7 @@ const Orders: React.FC = () => {
                 <div>
                   <p className="text-sm text-gray-600 mb-1">Completed</p>
                   <p className="text-2xl font-bold text-green-600">
-                    {orders.filter(o => o.status === 'completed').length}
+                    {reservations.filter(r => r.status === 'completed').length}
                   </p>
                 </div>
                 <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
@@ -195,7 +195,7 @@ const Orders: React.FC = () => {
                 <div>
                   <p className="text-sm text-gray-600 mb-1">In Progress</p>
                   <p className="text-2xl font-bold text-blue-600">
-                    {orders.filter(o => o.status === 'in_progress' || o.status === 'scheduled').length}
+                    {reservations.filter(r => r.status === 'in_progress' || r.status === 'scheduled').length}
                   </p>
                 </div>
                 <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
@@ -214,7 +214,7 @@ const Orders: React.FC = () => {
                 <div>
                   <p className="text-sm text-gray-600 mb-1">Total Revenue</p>
                   <p className="text-2xl font-bold text-dark">
-                    ${orders.reduce((sum, order) => sum + order.totalCost, 0).toLocaleString()}
+                    ${reservations.reduce((sum, reservation) => sum + reservation.totalCost, 0).toLocaleString()}
                   </p>
                 </div>
                 <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center">
@@ -231,7 +231,7 @@ const Orders: React.FC = () => {
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
                   type="text"
-                  placeholder="Search by address, client, or order ID..."
+                  placeholder="Search by address, client, or reservation ID..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent"
@@ -258,59 +258,59 @@ const Orders: React.FC = () => {
 
         {/* Orders List */}
         <div className="space-y-4">
-          {filteredOrders.length === 0 ? (
+          {filteredReservations.length === 0 ? (
             <div className="text-center py-12">
               <Camera className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-xl font-medium text-gray-600 mb-2">No orders found</h3>
+              <h3 className="text-xl font-medium text-gray-600 mb-2">No reservations found</h3>
               <p className="text-gray-500">Try adjusting your search or filters</p>
             </div>
           ) : (
-            filteredOrders.map((order, index) => (
+            filteredReservations.map((reservation, index) => (
               <motion.div
-                key={order.id}
+                key={reservation.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
                 className={cn(
                   "bg-white rounded-xl p-6 shadow-sm border-l-4 hover:shadow-md transition-all cursor-pointer",
-                  getPriorityColor(order.priority)
+                  getPriorityColor(reservation.priority)
                 )}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex-1">
                     <div className="flex items-center space-x-3 mb-3">
-                      <span className="font-mono text-sm text-gray-500">{order.id}</span>
+                      <span className="font-mono text-sm text-gray-500">{reservation.id}</span>
                       <div className={cn(
                         "flex items-center space-x-1 px-2 py-1 rounded-full text-xs font-medium",
-                        getStatusColor(order.status)
+                        getStatusColor(reservation.status)
                       )}>
-                        {getStatusIcon(order.status)}
-                        <span className="capitalize">{order.status.replace('_', ' ')}</span>
+                        {getStatusIcon(reservation.status)}
+                        <span className="capitalize">{reservation.status.replace('_', ' ')}</span>
                       </div>
-                      {order.priority !== 'standard' && (
+                      {reservation.priority !== 'standard' && (
                         <span className={cn(
                           "px-2 py-1 rounded-full text-xs font-medium",
-                          order.priority === 'urgent' ? 'bg-red-100 text-red-800' : 'bg-amber-100 text-amber-800'
+                          reservation.priority === 'urgent' ? 'bg-red-100 text-red-800' : 'bg-amber-100 text-amber-800'
                         )}>
-                          {order.priority}
+                          {reservation.priority}
                         </span>
                       )}
                     </div>
 
-                    <h3 className="text-lg font-semibold text-dark mb-2">{order.propertyAddress}</h3>
+                    <h3 className="text-lg font-semibold text-dark mb-2">{reservation.propertyAddress}</h3>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600">
                       <div className="flex items-center space-x-2">
-                        {getOrderTypeIcon(order.orderType)}
-                        <span className="capitalize">{order.orderType.replace('_', ' ')}</span>
+                        {getReservationTypeIcon(reservation.reservationType)}
+                        <span className="capitalize">{reservation.reservationType.replace('_', ' ')}</span>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <span>Client: {order.clientName}</span>
+                        <span>Client: {reservation.clientName}</span>
                       </div>
-                      {order.scheduledDate && (
+                      {reservation.scheduledDate && (
                         <div className="flex items-center space-x-2">
                           <Calendar className="w-4 h-4" />
-                          <span>{order.scheduledDate.toLocaleDateString()}</span>
+                          <span>{reservation.scheduledDate.toLocaleDateString()}</span>
                         </div>
                       )}
                     </div>
@@ -318,10 +318,10 @@ const Orders: React.FC = () => {
 
                   <div className="text-right">
                     <p className="text-2xl font-bold text-dark mb-1">
-                      ${order.totalCost.toLocaleString()}
+                      ${reservation.totalCost.toLocaleString()}
                     </p>
                     <p className="text-sm text-gray-500">
-                      Created {order.createdAt.toLocaleDateString()}
+                      Created {reservation.createdAt.toLocaleDateString()}
                     </p>
                   </div>
                 </div>
@@ -334,4 +334,4 @@ const Orders: React.FC = () => {
   );
 };
 
-export default Orders;
+export default Reservations;

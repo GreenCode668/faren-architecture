@@ -1,8 +1,7 @@
-import type { ProjectItem, ServiceItem, TestimonialItem, BlogPost, NavItem } from '../types';
+import type { ProjectItem, ServiceItem, TestimonialItem, BlogPost, NavItem, ServicePackage, ServiceOption } from '../types';
 
 export const navItems: NavItem[] = [
   { label: 'Home', href: '/' },
-  { label: 'About Me', href: '/about' },
   {
     label: 'Services',
     href: '/services',
@@ -23,17 +22,6 @@ export const navItems: NavItem[] = [
       { label: 'Interior Photography', href: '/portfolio?category=interior' },
     ]
   },
-  {
-    label: 'Resources',
-    href: '/resources',
-    children: [
-      { label: 'Preparation Guides', href: '/resources#guides' },
-      { label: 'Video Tutorials', href: '/resources#videos' },
-      { label: 'Photography Tips', href: '/resources#tips' },
-      { label: 'FAQ', href: '/resources#faq' },
-    ]
-  },
-  { label: 'Contact', href: '#contact' },
 ];
 
 export const projects: ProjectItem[] = [
@@ -211,4 +199,96 @@ export const blogPosts: BlogPost[] = [
     category: 'Aerial Photography',
     readTime: '6 min read',
   },
+];
+
+export const servicePackages: ServicePackage[] = [
+  {
+    id: 'basic-photography',
+    name: 'Basic Photography',
+    description: 'Professional interior and exterior photos perfect for standard listings',
+    basePrice: 1200,
+    features: [
+      '15-25 high-resolution photos',
+      'Interior and exterior shots',
+      'Basic editing and color correction',
+      '24-hour delivery',
+      'Online gallery'
+    ],
+    icon: 'Camera'
+  },
+  {
+    id: 'premium-photography',
+    name: 'Premium Photography',
+    description: 'Enhanced photography package with twilight and detail shots',
+    basePrice: 1800,
+    features: [
+      '25-35 high-resolution photos',
+      'Interior, exterior & twilight shots',
+      'Advanced editing and HDR processing',
+      'Detail and lifestyle shots',
+      '12-hour delivery',
+      'Online gallery with sharing options'
+    ],
+    icon: 'Camera'
+  },
+  {
+    id: 'drone-photography',
+    name: 'Drone Photography',
+    description: 'Aerial photography showcasing property from unique perspectives',
+    basePrice: 800,
+    features: [
+      '10-15 aerial photos',
+      '4K aerial video (2-3 minutes)',
+      'Multiple angles and heights',
+      'Weather-dependent scheduling',
+      'Licensed drone operator'
+    ],
+    icon: 'Plane'
+  },
+  {
+    id: 'virtual-tour',
+    name: 'Virtual Tour Package',
+    description: 'Interactive 360° virtual tour with floor plan integration',
+    basePrice: 2500,
+    features: [
+      'Matterport 3D virtual tour',
+      'Interactive floor plan',
+      'Measurements and room labels',
+      'Branded tour interface',
+      'Hosted for 12 months'
+    ],
+    icon: 'Eye'
+  },
+  {
+    id: 'complete-package',
+    name: 'Complete Marketing Package',
+    description: 'All services combined for maximum property exposure',
+    basePrice: 3500,
+    features: [
+      'Premium photography (30+ photos)',
+      'Drone photography and video',
+      'Matterport virtual tour',
+      'Twilight photography',
+      'Social media ready content',
+      'Same-day delivery available'
+    ],
+    icon: 'Package'
+  }
+];
+
+export const serviceOptions: ServiceOption[] = [
+  {
+    id: 'garagePhotos',
+    name: 'Garage Photos',
+    description: 'Include interior garage photography',
+    price: 200,
+    type: 'boolean'
+  },
+  {
+    id: 'basementPhotos',
+    name: 'Basement Photos',
+    description: 'Include basement/cellar photography',
+    price: 200,
+    type: 'boolean'
+  }
 ];

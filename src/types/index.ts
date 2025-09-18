@@ -102,3 +102,50 @@ export interface User {
   isVerified: boolean;
   createdAt: Date;
 }
+
+export interface ServicePackage {
+  id: string;
+  name: string;
+  description: string;
+  basePrice: number;
+  features: string[];
+  icon: string;
+}
+
+export interface ServiceOption {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  type: 'boolean' | 'selection';
+  required?: boolean;
+}
+
+export interface PropertyInfo {
+  caseNumber: string;
+  address: {
+    street: string;
+    postalCode: string;
+    city: string;
+  };
+  area: number;
+  occupancyStatus: 'occupied' | 'vacant';
+  accessMethod?: 'personal' | 'open' | 'receive_key' | 'key_box';
+  accessInstructions?: string;
+}
+
+export interface ReservationData {
+  servicePackage: ServicePackage | null;
+  selectedOptions: Record<string, boolean | string>;
+  propertyInfo: PropertyInfo | null;
+  totalPrice: number;
+  vatAmount: number;
+  finalPrice: number;
+}
+
+export interface ReservationFlowStep {
+  id: number;
+  title: string;
+  completed: boolean;
+  active: boolean;
+}

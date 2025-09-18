@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Mail, Phone, Eye, EyeOff, Shield, CheckCircle, AlertCircle } from 'lucide-react';
 import { cn } from '../utils/cn';
-import { useAuth } from '../contexts/AuthContext';
+import { useAppSelector, useAppDispatch } from '../store/hooks';
+import { login, register, verifyOTP } from '../store/slices/authSlice';
 import type { BrokerLoginForm, BrokerRegistrationForm, OTPVerification } from '../types';
 
 interface AuthProps {
@@ -13,11 +14,11 @@ interface AuthProps {
 }
 
 const Auth: React.FC<AuthProps> = ({ isOpen, onClose, mode, onSwitchMode }) => {
-  const { login, register, verifyOTP } = useAuth();
+  const dispatch = useAppDispatch();
+  const { isLoading, error } = useAppSelector((state) => state.auth);
   const [currentStep, setCurrentStep] = useState<'form' | 'otp' | 'success'>('form');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const [loginForm, setLoginForm] = useState<BrokerLoginForm>({
@@ -111,14 +112,11 @@ const Auth: React.FC<AuthProps> = ({ isOpen, onClose, mode, onSwitchMode }) => {
     e.preventDefault();
     if (!validateLoginForm()) return;
 
-    setIsLoading(true);
     try {
-      await login(loginForm.email, loginForm.password);
+      await dispatch(login({ email: loginForm.email, password: loginForm.password })).unwrap();
       onClose();
     } catch (error) {
-      setErrors({ general: 'Invalid credentials. Please try again.' });
-    } finally {
-      setIsLoading(false);
+      setErrors({ general: error as string });
     }
   };
 
@@ -126,9 +124,8 @@ const Auth: React.FC<AuthProps> = ({ isOpen, onClose, mode, onSwitchMode }) => {
     e.preventDefault();
     if (!validateRegistrationForm()) return;
 
-    setIsLoading(true);
     try {
-      await register(registrationForm);
+      await dispatch(register(registrationForm)).unwrap();
       setCurrentStep('otp');
 
       // Start OTP countdown
@@ -142,9 +139,7 @@ const Auth: React.FC<AuthProps> = ({ isOpen, onClose, mode, onSwitchMode }) => {
         });
       }, 1000);
     } catch (error) {
-      setErrors({ general: 'Registration failed. Please try again.' });
-    } finally {
-      setIsLoading(false);
+      setErrors({ general: error as string });
     }
   };
 
@@ -155,14 +150,11 @@ const Auth: React.FC<AuthProps> = ({ isOpen, onClose, mode, onSwitchMode }) => {
       return;
     }
 
-    setIsLoading(true);
     try {
-      await verifyOTP(otpForm.code);
+      await dispatch(verifyOTP(otpForm.code)).unwrap();
       setCurrentStep('success');
     } catch (error) {
-      setErrors({ otp: 'Invalid verification code. Please try again.' });
-    } finally {
-      setIsLoading(false);
+      setErrors({ otp: error as string });
     }
   };
 

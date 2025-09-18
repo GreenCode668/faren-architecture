@@ -1,23 +1,31 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import CustomCursor from './components/CustomCursor';
-import Orders from './components/Orders';
+import Reservations from './components/Reservations';
 import Home from './pages/Home';
-import AboutMe from './pages/AboutMe';
 import ServicesPage from './pages/ServicesPage';
 import PortfolioPage from './pages/PortfolioPage';
-import ResourcesPage from './pages/ResourcesPage';
-import { AuthProvider, useAuth } from './contexts/AuthContext';
+import ReservationFlow from './pages/ReservationFlow';
+import { useAppSelector, useAppDispatch } from './store/hooks';
+import { checkAuthStatus } from './store/slices/authSlice';
+import { useEffect } from 'react';
 
 const AppContent = () => {
-  const { isAuthenticated, user } = useAuth();
+  const dispatch = useAppDispatch();
+  const { isAuthenticated, user } = useAppSelector((state) => state.auth);
+
+  useEffect(() => {
+    dispatch(checkAuthStatus());
+  }, [dispatch]);
 
   if (isAuthenticated && user?.isVerified) {
     return (
       <div className="min-h-screen bg-white">
         <Header />
-        <Orders />
+        <Reservations />
       </div>
     );
   }
@@ -25,26 +33,47 @@ const AppContent = () => {
   return (
     <div className="min-h-screen bg-white custom-cursor">
       <CustomCursor />
-      <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<AboutMe />} />
-        <Route path="/services" element={<ServicesPage />} />
-        <Route path="/portfolio" element={<PortfolioPage />} />
-        <Route path="/resources" element={<ResourcesPage />} />
+        <Route path="/" element={
+          <>
+            <Header />
+            <Home />
+            <Footer />
+          </>
+        } />
+        <Route path="/services" element={
+          <>
+            <Header />
+            <ServicesPage />
+            <Footer />
+          </>
+        } />
+        <Route path="/portfolio" element={
+          <>
+            <Header />
+            <PortfolioPage />
+            <Footer />
+          </>
+        } />
+        <Route path="/reservation" element={
+          <>
+            <Header />
+            <ReservationFlow />
+            <Footer />
+          </>
+        } />
       </Routes>
-      <Footer />
     </div>
   );
 };
 
 function App() {
   return (
-    <AuthProvider>
+    <Provider store={store}>
       <Router>
         <AppContent />
       </Router>
-    </AuthProvider>
+    </Provider>
   );
 }
 

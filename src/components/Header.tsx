@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronDown, UserPlus, LogIn, Sun, Moon, Globe, LogOut, User } from 'lucide-react';
+import { Menu, X, ChevronDown, UserPlus, LogIn, Globe, LogOut, User, Camera, Bell } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { navItems } from '../data/mockData';
 import { cn } from '../utils/cn';
-import { useAuth } from '../contexts/AuthContext';
+import { useAppSelector, useAppDispatch } from '../store/hooks';
+import { logout, login } from '../store/slices/authSlice';
 import Auth from './Auth';
 
 const Header: React.FC = () => {
-  const { isAuthenticated, user, logout } = useAuth();
+  const dispatch = useAppDispatch();
+  const { isAuthenticated, user } = useAppSelector((state) => state.auth);
   const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const [isDarkMode, setIsDarkMode] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState('EN');
   const [showAuth, setShowAuth] = useState(false);
   const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
@@ -52,11 +53,6 @@ const Header: React.FC = () => {
   const handleSignup = () => {
     setAuthMode('login');
     setShowAuth(true);
-  };
-
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-    console.log('Dark mode toggled:', !isDarkMode);
   };
 
   const toggleLanguage = () => {
@@ -199,6 +195,27 @@ const Header: React.FC = () => {
               ))}
             </nav>
 
+            {/* Reservation Button */}
+            <div className="hidden lg:flex items-center space-x-4">
+              <Link to="/reservation">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className={cn(
+                    'px-4 py-2 rounded-lg transition-all duration-300 font-medium flex items-center space-x-2',
+                    isActivePath('/reservation')
+                      ? 'bg-accent text-white'
+                      : isScrolled
+                      ? 'bg-accent text-white hover:bg-accent/90'
+                      : 'bg-accent text-white hover:bg-accent/90'
+                  )}
+                >
+                  <Camera className="w-4 h-4" />
+                  <span>Book Now</span>
+                </motion.button>
+              </Link>
+            </div>
+
             {/* Action Buttons */}
             <div className="hidden lg:flex items-center space-x-2">
               {isAuthenticated ? (
@@ -220,7 +237,7 @@ const Header: React.FC = () => {
 
                   {/* Logout Button */}
                   <motion.button
-                    onClick={logout}
+                    onClick={() => dispatch(logout())}
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
                     className={cn(
@@ -270,20 +287,21 @@ const Header: React.FC = () => {
                 </>
               )}
 
-              {/* Dark/Light Mode Toggle */}
+              {/* Notification Button */}
               <motion.button
-                onClick={toggleDarkMode}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
                 className={cn(
-                  'p-2 rounded-lg transition-all duration-300 hover:bg-accent hover:text-white',
+                  'p-2 rounded-lg transition-all duration-300 hover:bg-accent hover:text-white relative',
                   isScrolled
                     ? 'text-dark hover:bg-accent'
                     : 'text-white hover:bg-accent'
                 )}
-                title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+                title="Notifications"
               >
-                {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                <Bell className="w-5 h-5" />
+                {/* Optional notification badge */}
+                <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>
               </motion.button>
 
               {/* Language Selection */}
@@ -458,6 +476,20 @@ const Header: React.FC = () => {
                   ))}
                 </nav>
 
+                {/* Mobile Reservation Button */}
+                <div className="mt-6">
+                  <Link to="/reservation" onClick={() => setIsMobileMenuOpen(false)}>
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="w-full flex items-center justify-center space-x-2 p-4 rounded-lg bg-accent text-white font-medium shadow-lg hover:bg-accent/90 transition-all duration-300"
+                    >
+                      <Camera className="w-5 h-5" />
+                      <span>Book Photography Session</span>
+                    </motion.button>
+                  </Link>
+                </div>
+
                 <div className="mt-8 pt-8 border-t border-gray-200">
                   <div className="grid grid-cols-2 gap-3">
                     {/* Registration Button */}
@@ -482,18 +514,6 @@ const Header: React.FC = () => {
                       <span className="text-sm font-medium">Sign Up</span>
                     </motion.button>
 
-                    {/* Dark/Light Mode Toggle */}
-                    <motion.button
-                      onClick={toggleDarkMode}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="flex items-center justify-center space-x-2 p-3 rounded-lg bg-accent/10 text-accent hover:bg-accent hover:text-white transition-all duration-300"
-                    >
-                      {isDarkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-                      <span className="text-sm font-medium">
-                        {isDarkMode ? 'Light' : 'Dark'}
-                      </span>
-                    </motion.button>
 
                     {/* Language Selection */}
                     <motion.button

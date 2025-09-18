@@ -31,7 +31,7 @@ const BackgroundShapes: React.FC<BackgroundShapesProps> = ({
       const top = Math.random() * 100; // 0% to 100%
       const left = Math.random() * 100; // 0% to 100%
       const animationDelay = Math.random() * 10; // 0s to 10s
-      const animationDuration = Math.random() * 20 + 15; // 15s to 35s
+      const animationDuration = Math.random() * 30 + 25; // 25s to 55s
 
       shapes.push(
         <motion.div
@@ -76,7 +76,7 @@ const BackgroundShapes: React.FC<BackgroundShapesProps> = ({
           opacity: [0.3, 0.6, 0.3],
         }}
         transition={{
-          duration: 8,
+          duration: 25,
           repeat: Infinity,
           ease: "easeInOut",
         }}
@@ -90,7 +90,7 @@ const BackgroundShapes: React.FC<BackgroundShapesProps> = ({
           rotate: [0, 360],
         }}
         transition={{
-          duration: 12,
+          duration: 35,
           repeat: Infinity,
           ease: "linear",
         }}
