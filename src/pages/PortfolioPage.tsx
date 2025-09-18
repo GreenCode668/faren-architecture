@@ -4,7 +4,7 @@ import { X, ExternalLink, Calendar, MapPin, Camera } from 'lucide-react';
 
 const PortfolioPage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [selectedImage, setSelectedImage] = useState<any>(null);
+  const [selectedImage, setSelectedImage] = useState<{ id: number; title: string; category: string; location: string; year: string; description: string; image: string; images: number; featured: boolean } | null>(null);
 
   const categories = [
     { id: 'all', name: 'All Projects' },

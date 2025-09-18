@@ -18,7 +18,7 @@ interface Reservation {
 const Reservations: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
-  const [showNewReservationModal, setShowNewReservationModal] = useState(false);
+  const [, setShowNewReservationModal] = useState(false);
 
   // Mock reservations data
   const [reservations] = useState<Reservation[]>([

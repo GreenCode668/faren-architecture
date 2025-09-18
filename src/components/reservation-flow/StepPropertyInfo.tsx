@@ -26,14 +26,14 @@ const StepPropertyInfo: React.FC = () => {
 
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const handleInputChange = (field: string, value: any) => {
+  const handleInputChange = (field: string, value: string | number) => {
     setPropertyInfoState(prev => {
       if (field.includes('.')) {
         const [parent, child] = field.split('.');
         return {
           ...prev,
           [parent]: {
-            ...prev[parent as keyof PropertyInfo],
+            ...(prev[parent as keyof PropertyInfo] as Record<string, unknown>),
             [child]: value,
           },
         };
@@ -78,16 +78,6 @@ const StepPropertyInfo: React.FC = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  // Clear error when user starts typing
-  const clearError = (field: string) => {
-    if (errors[field]) {
-      setErrors(prev => {
-        const newErrors = { ...prev };
-        delete newErrors[field];
-        return newErrors;
-      });
-    }
-  };
 
   const handleContinue = () => {
     if (validateForm()) {

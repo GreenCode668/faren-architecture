@@ -4,7 +4,7 @@ import { X, Mail, Phone, Eye, EyeOff, Shield, CheckCircle, AlertCircle } from 'l
 import { cn } from '../utils/cn';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import { login, register, verifyOTP } from '../store/slices/authSlice';
-import type { BrokerLoginForm, BrokerRegistrationForm, OTPVerification } from '../types';
+import type { BrokerLoginForm, BrokerRegistrationForm } from '../types';
 
 interface AuthProps {
   isOpen: boolean;
@@ -15,7 +15,7 @@ interface AuthProps {
 
 const Auth: React.FC<AuthProps> = ({ isOpen, onClose, mode, onSwitchMode }) => {
   const dispatch = useAppDispatch();
-  const { isLoading, error } = useAppSelector((state) => state.auth);
+  const { isLoading } = useAppSelector((state) => state.auth);
   const [currentStep, setCurrentStep] = useState<'form' | 'otp' | 'success'>('form');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -78,7 +78,7 @@ const Auth: React.FC<AuthProps> = ({ isOpen, onClose, mode, onSwitchMode }) => {
     }
     if (!registrationForm.phone) {
       newErrors.phone = 'Phone number is required';
-    } else if (!/^\+?[\d\s\-\(\)]{10,}$/.test(registrationForm.phone)) {
+    } else if (!/^\+?[\d\s\-()]{10,}$/.test(registrationForm.phone)) {
       newErrors.phone = 'Please enter a valid phone number';
     }
     if (!registrationForm.companyName) newErrors.companyName = 'Company name is required';
@@ -115,8 +115,8 @@ const Auth: React.FC<AuthProps> = ({ isOpen, onClose, mode, onSwitchMode }) => {
     try {
       await dispatch(login({ email: loginForm.email, password: loginForm.password })).unwrap();
       onClose();
-    } catch (error) {
-      setErrors({ general: error as string });
+    } catch {
+      setErrors({ general: 'Login failed. Please try again.' });
     }
   };
 
@@ -138,8 +138,8 @@ const Auth: React.FC<AuthProps> = ({ isOpen, onClose, mode, onSwitchMode }) => {
           return { ...prev, timeLeft: prev.timeLeft - 1 };
         });
       }, 1000);
-    } catch (error) {
-      setErrors({ general: error as string });
+    } catch {
+      setErrors({ general: 'Login failed. Please try again.' });
     }
   };
 
@@ -153,8 +153,8 @@ const Auth: React.FC<AuthProps> = ({ isOpen, onClose, mode, onSwitchMode }) => {
     try {
       await dispatch(verifyOTP(otpForm.code)).unwrap();
       setCurrentStep('success');
-    } catch (error) {
-      setErrors({ otp: error as string });
+    } catch {
+      setErrors({ otp: 'Verification failed. Please try again.' });
     }
   };
 

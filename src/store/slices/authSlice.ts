@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit';
-import type { User } from '../../types';
+import type { User, BrokerRegistrationForm } from '../../types';
 
 interface AuthState {
   user: User | null;
@@ -18,7 +18,7 @@ const initialState: AuthState = {
 // Async thunks for auth operations
 export const login = createAsyncThunk(
   'auth/login',
-  async ({ email, password }: { email: string; password: string }, { rejectWithValue }) => {
+  async ({ email }: { email: string; password: string }, { rejectWithValue }) => {
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1500));
@@ -39,7 +39,7 @@ export const login = createAsyncThunk(
       localStorage.setItem('broker_user', JSON.stringify(userData));
 
       return userData;
-    } catch (error) {
+    } catch {
       return rejectWithValue('Login failed. Please check your credentials.');
     }
   }
@@ -47,7 +47,7 @@ export const login = createAsyncThunk(
 
 export const register = createAsyncThunk(
   'auth/register',
-  async (userData: any, { rejectWithValue }) => {
+  async (userData: BrokerRegistrationForm, { rejectWithValue }) => {
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1500));
@@ -56,7 +56,7 @@ export const register = createAsyncThunk(
       console.log('Registration data:', userData);
 
       return userData;
-    } catch (error) {
+    } catch {
       return rejectWithValue('Registration failed. Please try again.');
     }
   }
@@ -73,7 +73,7 @@ export const verifyOTP = createAsyncThunk(
       console.log('OTP verified:', code);
 
       return code;
-    } catch (error) {
+    } catch {
       return rejectWithValue('Invalid verification code.');
     }
   }
@@ -88,8 +88,7 @@ export const checkAuthStatus = createAsyncThunk(
         return JSON.parse(storedUser) as User;
       }
       return null;
-    } catch (error) {
-      console.error('Failed to parse stored user data:', error);
+    } catch {
       localStorage.removeItem('broker_user');
       return rejectWithValue('Failed to restore session');
     }

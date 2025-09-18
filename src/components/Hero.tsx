@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Play, ChevronDown } from 'lucide-react';
-import BackgroundShapes from './BackgroundShapes';
 
 const Hero: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);

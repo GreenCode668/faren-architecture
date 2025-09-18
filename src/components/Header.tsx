@@ -5,7 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { navItems } from '../data/mockData';
 import { cn } from '../utils/cn';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
-import { logout, login } from '../store/slices/authSlice';
+import { logout } from '../store/slices/authSlice';
 import Auth from './Auth';
 
 const Header: React.FC = () => {
