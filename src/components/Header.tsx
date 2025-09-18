@@ -83,21 +83,40 @@ const Header: React.FC = () => {
         <div className="container-custom">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <Link to="/">
+            <Link to="/" className="flex-shrink-0">
               <motion.div
-                className="flex items-center space-x-2"
-                whileHover={{ scale: 1.05 }}
+                className="flex items-center space-x-3"
+                whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.2 }}
               >
-                <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-xl">📸</span>
+                {/* Logo Image */}
+                <div className="relative">
+                  <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-gradient-to-br from-accent to-accent/80 flex items-center justify-center overflow-hidden shadow-lg">
+                    <img
+                      src="/images/logo.webp"
+                      alt="Marcos Borges Photography"
+                      className="w-8 h-8 md:w-10 md:h-10 object-contain filter brightness-0 invert"
+                    />
+                  </div>
+                  {/* Accent dot */}
+                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-white rounded-full border-2 border-accent shadow-sm" />
                 </div>
-                <span className={cn(
-                  'text-2xl font-display font-bold transition-colors duration-300',
-                  isScrolled ? 'text-dark' : 'text-white'
-                )}>
-                  Marcos Borges
-                </span>
+
+                {/* Text Logo */}
+                <div className="flex flex-col">
+                  <span className={cn(
+                    'text-lg md:text-xl lg:text-2xl font-display font-bold transition-colors duration-300 leading-tight',
+                    isScrolled ? 'text-dark' : 'text-white'
+                  )}>
+                    Marcos Borges
+                  </span>
+                  <span className={cn(
+                    'text-xs md:text-sm font-sans font-medium transition-colors duration-300 tracking-wider uppercase',
+                    isScrolled ? 'text-light' : 'text-white/80'
+                  )}>
+                    Photography
+                  </span>
+                </div>
               </motion.div>
             </Link>
 
@@ -331,13 +350,25 @@ const Header: React.FC = () => {
             >
               <div className="p-6">
                 <div className="flex items-center justify-between mb-8">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center">
-                      <span className="text-white font-bold">📸</span>
+                  <div className="flex items-center space-x-3">
+                    <div className="relative">
+                      <div className="w-10 h-10 bg-gradient-to-br from-accent to-accent/80 rounded-xl flex items-center justify-center overflow-hidden shadow-md">
+                        <img
+                          src="/images/logo.webp"
+                          alt="Marcos Borges Photography"
+                          className="w-6 h-6 object-contain filter brightness-0 invert"
+                        />
+                      </div>
+                      <div className="absolute -top-1 -right-1 w-3 h-3 bg-white rounded-full border border-accent" />
                     </div>
-                    <span className="text-xl font-display font-bold text-dark">
-                      Marcos Borges
-                    </span>
+                    <div className="flex flex-col">
+                      <span className="text-lg font-display font-bold text-dark leading-tight">
+                        Marcos Borges
+                      </span>
+                      <span className="text-xs font-sans font-medium text-light tracking-wider uppercase">
+                        Photography
+                      </span>
+                    </div>
                   </div>
                   <button
                     onClick={() => setIsMobileMenuOpen(false)}

@@ -135,8 +135,24 @@ const ResourcesPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative py-32 bg-gradient-to-br from-gray-900 to-gray-800">
-        <div className="container mx-auto px-4">
+      <section className="relative py-32 overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+            alt="Professional workspace"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-gray-800/80" />
+        </div>
+
+        {/* Decorative Shapes */}
+        <div className="absolute top-32 right-10 w-24 h-24 bg-accent/25 rounded-full backdrop-blur-sm animate-float" />
+        <div className="absolute bottom-24 left-16 w-14 h-14 bg-white/15 rounded-full backdrop-blur-sm" />
+        <div className="absolute top-1/3 right-1/3 w-10 h-10 bg-accent/20 rounded-full backdrop-blur-sm animate-pulse" />
+        <div className="absolute bottom-1/3 left-1/4 w-16 h-16 bg-white/10 rounded-full backdrop-blur-sm" />
+
+        <div className="container mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -355,17 +371,17 @@ const ResourcesPage: React.FC = () => {
             viewport={{ once: true }}
             className="text-center"
           >
-            <h2 className="text-4xl font-bold text-white mb-6">Still Have Questions?</h2>
+            <h2 className="text-4xl font-bold text-white mb-6">Ready to Transform Your Listings?</h2>
             <p className="text-xl text-white/90 mb-8 max-w-3xl mx-auto">
-              Don't hesitate to reach out. I'm here to help you understand the process and
-              answer any specific questions about your project.
+              Join successful agents who use professional photography to win more listings, attract qualified buyers,
+              and sell properties faster. Let's discuss your upcoming properties.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button className="bg-white text-accent px-8 py-4 rounded-lg font-medium hover:bg-gray-100 transition-colors duration-300">
-                Contact Me
+                Get Agent Pricing
               </button>
               <button className="border-2 border-white text-white px-8 py-4 rounded-lg font-medium hover:bg-white hover:text-accent transition-colors duration-300">
-                Schedule Consultation
+                Schedule Property Shoot
               </button>
             </div>
           </motion.div>

@@ -39,11 +39,25 @@ const Footer: React.FC = () => {
 
   return (
     <footer className="bg-dark text-white relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-10 left-10 w-32 h-32 border border-white rounded-full" />
-        <div className="absolute bottom-10 right-10 w-24 h-24 border border-white rounded-full" />
-        <div className="absolute top-1/2 left-1/4 w-16 h-16 border border-white rounded-full" />
+      {/* Enhanced Background Pattern */}
+      <div className="absolute inset-0 opacity-10">
+        <motion.div
+          className="absolute top-10 left-10 w-32 h-32 border border-white/30 rounded-full"
+          animate={{ rotate: 360, scale: [1, 1.1, 1] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        />
+        <motion.div
+          className="absolute bottom-10 right-10 w-24 h-24 border border-accent/40 rounded-full"
+          animate={{ rotate: -360, scale: [1, 1.2, 1] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+        />
+        <motion.div
+          className="absolute top-1/2 left-1/4 w-16 h-16 border border-white/20 rounded-full"
+          animate={{ y: [-10, 10, -10] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <div className="absolute top-1/3 right-1/3 w-12 h-12 bg-gradient-to-br from-accent/20 to-accent/10 rounded-full blur-sm" />
+        <div className="absolute bottom-1/3 left-1/3 w-20 h-20 bg-gradient-to-br from-white/5 to-white/2 rounded-full blur-md" />
       </div>
 
       <div className="relative z-10">
@@ -58,11 +72,26 @@ const Footer: React.FC = () => {
               viewport={{ once: true }}
               className="lg:col-span-1"
             >
-              <div className="flex items-center space-x-2 mb-6">
-                <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-xl">📸</span>
+              {/* Enhanced Logo */}
+              <div className="flex items-center space-x-3 mb-6">
+                <div className="relative">
+                  <div className="w-12 h-12 bg-gradient-to-br from-accent to-accent/80 rounded-xl flex items-center justify-center overflow-hidden shadow-lg">
+                    <img
+                      src="/images/logo.webp"
+                      alt="Marcos Borges Photography"
+                      className="w-8 h-8 object-contain filter brightness-0 invert"
+                    />
+                  </div>
+                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-white rounded-full border-2 border-accent shadow-sm" />
                 </div>
-                <span className="text-2xl font-display font-bold">Marcos Borges</span>
+                <div className="flex flex-col">
+                  <span className="text-xl font-display font-bold text-white leading-tight">
+                    Marcos Borges
+                  </span>
+                  <span className="text-xs font-sans font-medium text-white/70 tracking-wider uppercase">
+                    Photography
+                  </span>
+                </div>
               </div>
 
               <p className="text-white/70 mb-6 leading-relaxed">
@@ -156,20 +185,27 @@ const Footer: React.FC = () => {
               </ul>
 
               {/* Newsletter */}
-              <div>
-                <h4 className="font-semibold mb-4">Stay Updated</h4>
-                <p className="text-white/70 text-sm mb-4">
-                  Subscribe to our newsletter for design insights and project updates.
+              <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <h4 className="font-semibold mb-3 text-white flex items-center">
+                  <div className="w-2 h-2 bg-accent rounded-full mr-2" />
+                  Stay Updated
+                </h4>
+                <p className="text-white/70 text-sm mb-4 leading-relaxed">
+                  Get the latest photography tips, project showcases, and booking updates.
                 </p>
-                <div className="flex">
+                <div className="space-y-3">
                   <input
                     type="email"
-                    placeholder="Your email"
-                    className="flex-1 px-4 py-2 bg-white/10 border border-white/20 rounded-l-lg focus:outline-none focus:border-accent text-white placeholder-white/50"
+                    placeholder="Enter your email address"
+                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:border-accent focus:bg-white/20 text-white placeholder-white/50 transition-all duration-200"
                   />
-                  <button className="px-4 py-2 bg-accent hover:bg-accent/90 rounded-r-lg transition-colors duration-200">
-                    Subscribe
-                  </button>
+                  <motion.button
+                    className="w-full px-4 py-3 bg-accent hover:bg-accent/90 rounded-lg transition-all duration-200 font-medium text-white shadow-lg"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    Subscribe to Newsletter
+                  </motion.button>
                 </div>
               </div>
             </motion.div>
@@ -199,15 +235,20 @@ const Footer: React.FC = () => {
                 viewport={{ once: true }}
                 className="flex items-center space-x-4"
               >
-                {socialLinks.map((social) => (
-                  <a
+                {socialLinks.map((social, index) => (
+                  <motion.a
                     key={social.label}
                     href={social.href}
                     aria-label={social.label}
-                    className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center text-white/70 hover:bg-accent hover:text-white transition-all duration-200"
+                    className="w-10 h-10 bg-white/10 hover:bg-accent rounded-xl flex items-center justify-center text-white/70 hover:text-white transition-all duration-200 border border-white/10 hover:border-accent shadow-sm"
+                    whileHover={{ scale: 1.1, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
                   >
-                    <social.icon className="w-5 h-5" />
-                  </a>
+                    <social.icon className="w-4 h-4" />
+                  </motion.a>
                 ))}
               </motion.div>
 
@@ -218,8 +259,8 @@ const Footer: React.FC = () => {
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
                 viewport={{ once: true }}
-                className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center text-white hover:bg-accent/90 transition-all duration-200"
-                whileHover={{ scale: 1.1 }}
+                className="w-12 h-12 bg-gradient-to-br from-accent to-accent/80 rounded-xl flex items-center justify-center text-white hover:from-accent/90 hover:to-accent/70 transition-all duration-200 shadow-lg border border-accent/20"
+                whileHover={{ scale: 1.1, y: -2 }}
                 whileTap={{ scale: 0.9 }}
               >
                 <ArrowUp className="w-5 h-5" />

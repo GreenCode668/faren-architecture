@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle, Award, Users, Lightbulb } from 'lucide-react';
+import BackgroundShapes from './BackgroundShapes';
 
 const About: React.FC = () => {
   const features = [
@@ -34,8 +35,11 @@ const About: React.FC = () => {
   ];
 
   return (
-    <section id="about" className="section-padding bg-white">
-      <div className="container-custom">
+    <section id="about" className="section-padding bg-white relative overflow-hidden">
+      {/* Decorative Background Shapes */}
+      <BackgroundShapes density="light" colorScheme="accent" />
+
+      <div className="container-custom relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left Content */}
           <motion.div
@@ -44,13 +48,13 @@ const About: React.FC = () => {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <p className="section-title">About Alex Rivera</p>
+            <p className="section-title">About Marcos Borges</p>
             <h2 className="heading-lg mb-6">
               Capturing the Soul of Every Property
             </h2>
             <p className="text-lg text-light mb-8 leading-relaxed">
               With over 8 years of experience in real estate photography, I've had the privilege
-              of working with top agents and developers across the country. My passion lies in
+              of working with top agents and developers across Denmark and Europe. My passion lies in
               transforming ordinary spaces into extraordinary visual stories.
             </p>
             <p className="text-light mb-10 leading-relaxed">
@@ -93,31 +97,113 @@ const About: React.FC = () => {
             viewport={{ once: true }}
             className="relative"
           >
-            {/* Main Image */}
-            <div className="relative rounded-3xl overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                alt="Modern Architecture"
-                className="w-full h-[600px] object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+            {/* Image Grid */}
+            <div className="grid grid-cols-2 gap-4 h-[600px]">
+              {/* Main Large Image */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
+                whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.02, y: -5 }}
+                className="col-span-1 row-span-2 relative rounded-3xl overflow-hidden shadow-2xl"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                  alt="Modern Architecture"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+              </motion.div>
+
+              {/* Top Right Image */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8, y: -20 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.05, rotate: 2 }}
+                className="relative rounded-2xl overflow-hidden shadow-lg"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                  alt="Interior Design"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-transparent" />
+              </motion.div>
+
+              {/* Bottom Right Image */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.05, rotate: -2 }}
+                className="relative rounded-2xl overflow-hidden shadow-lg"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                  alt="Property Exterior"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-tl from-dark/20 to-transparent" />
+              </motion.div>
             </div>
 
             {/* Experience Badge */}
             <motion.div
-              initial={{ opacity: 0, scale: 0 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
+              initial={{ opacity: 0, scale: 0, rotate: -10 }}
+              whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+              transition={{ duration: 0.8, delay: 0.8, type: "spring", bounce: 0.4 }}
               viewport={{ once: true }}
-              className="absolute -bottom-6 -left-6 bg-accent rounded-2xl p-6 text-white shadow-2xl"
+              whileHover={{ scale: 1.1, rotate: 5 }}
+              className="absolute -bottom-6 -left-6 bg-accent rounded-2xl p-6 text-white shadow-2xl z-10"
             >
               <div className="text-4xl font-bold mb-1">8+</div>
               <div className="text-sm opacity-90">Years of Experience</div>
             </motion.div>
 
-            {/* Floating Elements */}
-            <div className="absolute -top-6 -right-6 w-24 h-24 bg-accent/20 rounded-full animate-float" />
-            <div className="absolute top-1/2 -left-4 w-16 h-16 bg-dark/10 rounded-full animate-float" style={{ animationDelay: '2s' }} />
+            {/* Animated Floating Elements */}
+            <motion.div
+              animate={{
+                y: [0, -10, 0],
+                rotate: [0, 5, 0],
+                scale: [1, 1.1, 1]
+              }}
+              transition={{
+                duration: 6,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+              className="absolute -top-6 -right-6 w-24 h-24 bg-accent/20 rounded-full"
+            />
+            <motion.div
+              animate={{
+                y: [0, 10, 0],
+                x: [0, 5, 0],
+                scale: [1, 1.2, 1]
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 2
+              }}
+              className="absolute top-1/2 -left-4 w-16 h-16 bg-dark/10 rounded-full"
+            />
+            <motion.div
+              animate={{
+                rotate: [0, 360],
+                scale: [1, 1.1, 1]
+              }}
+              transition={{
+                duration: 20,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+              className="absolute top-1/4 right-1/4 w-12 h-12 bg-accent/30 rounded-full"
+            />
           </motion.div>
         </div>
 

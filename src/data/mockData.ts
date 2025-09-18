@@ -156,8 +156,8 @@ export const testimonials: TestimonialItem[] = [
     name: 'Sarah Martinez',
     position: 'Real Estate Agent',
     company: 'Premium Properties Group',
-    avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b1c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
-    content: 'The photography quality is absolutely stunning! My listings sell 40% faster with these professional images. The attention to detail and lighting is exceptional.',
+    avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
+    content: 'Since partnering with Marcos, my listings get 3x more online views and sell 40% faster. His photography transforms ordinary properties into must-see homes that buyers fall in love with online.',
     rating: 5,
   },
   {
@@ -166,7 +166,7 @@ export const testimonials: TestimonialItem[] = [
     position: 'Property Developer',
     company: 'Metro Development LLC',
     avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
-    content: 'Working with this photographer has been a game-changer for our marketing. The aerial shots and virtual tours bring our properties to life beautifully.',
+    content: 'Marcos\'s virtual tours have revolutionized my sales process. Buyers arrive pre-qualified and ready to make offers. I\'ve closed 3 deals this month where buyers saw the virtual tour first.',
     rating: 5,
   },
   {
@@ -174,8 +174,8 @@ export const testimonials: TestimonialItem[] = [
     name: 'Jennifer Collins',
     position: 'Luxury Home Specialist',
     company: 'Elite Estates Realty',
-    avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
-    content: 'The quality and professionalism are unmatched. Every shot captures the luxury and elegance of our high-end properties perfectly. Highly recommended!',
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
+    content: 'My luxury listings now command premium prices thanks to Marcos\'s photography. The twilight shots and aerial views justify higher asking prices and attract serious buyers immediately.',
     rating: 5,
   },
 ];

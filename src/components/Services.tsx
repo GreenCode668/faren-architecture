@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Building, Home, Users, MessageCircle, Camera, Eye, ArrowRight } from 'lucide-react';
 import { services } from '../data/mockData';
+import BackgroundShapes from './BackgroundShapes';
 
 const iconMap = {
   Building,
@@ -14,8 +15,11 @@ const iconMap = {
 
 const Services: React.FC = () => {
   return (
-    <section id="services" className="section-padding bg-smoke-light">
-      <div className="container-custom">
+    <section id="services" className="section-padding bg-smoke-light relative overflow-hidden">
+      {/* Decorative Background Shapes */}
+      <BackgroundShapes density="medium" colorScheme="light" />
+
+      <div className="container-custom relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}

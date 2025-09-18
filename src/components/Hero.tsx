@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Play, ChevronDown } from 'lucide-react';
+import BackgroundShapes from './BackgroundShapes';
 
 const Hero: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -8,42 +9,42 @@ const Hero: React.FC = () => {
   const slides = [
     {
       id: 1,
-      title: 'Modern Architectural Photography',
-      subtitle: 'Capturing contemporary design',
-      description: 'I specialize in showcasing modern buildings and contemporary architecture with dramatic lighting and creative compositions that highlight every design detail.',
+      title: 'Sell Properties 40% Faster',
+      subtitle: 'Professional Real Estate Photography',
+      description: 'Transform your listings with stunning photography that captures buyers\' attention and drives faster sales. Professional images proven to increase viewing requests and reduce time on market.',
       image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
       stats: { projects: '500+', years: '8+', clients: '50+' }
     },
     {
       id: 2,
-      title: 'Luxury Interior Photography',
-      subtitle: 'Elegant interior spaces',
-      description: 'From luxury living rooms to designer kitchens, I capture the essence and atmosphere of beautifully designed interior spaces.',
+      title: 'Luxury Listings That Stand Out',
+      subtitle: 'Premium Interior Photography',
+      description: 'Showcase high-end properties with magazine-quality interior photography. Every room photographed to highlight luxury features and create emotional connection with potential buyers.',
       image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
       stats: { projects: '500+', years: '8+', clients: '50+' }
     },
     {
       id: 3,
-      title: 'Stunning Property Exteriors',
-      subtitle: 'Showcasing curb appeal',
-      description: 'Professional exterior photography that captures the full beauty and character of residential and commercial properties.',
+      title: 'Maximum Curb Appeal',
+      subtitle: 'Exterior & Drone Photography',
+      description: 'Make powerful first impressions with professional exterior and aerial photography. Show property boundaries, neighborhood context, and stunning perspectives that online listings demand.',
       image: 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
       stats: { projects: '500+', years: '8+', clients: '50+' }
     },
     {
       id: 4,
-      title: 'Immersive Virtual Tours',
-      subtitle: 'Interactive property experiences',
-      description: 'State-of-the-art virtual tours that allow potential buyers to explore properties remotely with complete 360-degree views.',
-      image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+      title: 'Virtual Tours That Convert',
+      subtitle: '360° Interactive Experiences',
+      description: 'Give serious buyers the immersive experience they want. Virtual tours increase engagement by 87% and help qualify leads before showings, saving you valuable time.',
+      image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
       stats: { projects: '500+', years: '8+', clients: '50+' }
     },
     {
       id: 5,
-      title: 'Architectural Drawings & Plans',
-      subtitle: 'Technical documentation',
-      description: 'Professional architectural photography of blueprints, floor plans, and technical drawings for development and marketing purposes.',
-      image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+      title: '24-Hour Turnaround Guarantee',
+      subtitle: 'Fast, Reliable Service',
+      description: 'Get your listings online faster with guaranteed 24-48 hour delivery. Professional editing, multiple formats, and everything you need to market properties immediately.',
+      image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
       stats: { projects: '500+', years: '8+', clients: '50+' }
     },
   ];
@@ -85,6 +86,7 @@ const Hero: React.FC = () => {
           <div className="absolute inset-0 bg-black/40" />
         </motion.div>
       ))}
+
 
       {/* Content */}
       <div className="relative z-10 h-full flex items-center">
@@ -132,13 +134,13 @@ const Hero: React.FC = () => {
                   transition={{ duration: 0.8, delay: 1 }}
                 >
                   <button className="btn-primary group">
-                    Photo Shoot Reservation
+                    Book Your Property Shoot
                     <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
                   </button>
 
                   <button className="inline-flex items-center justify-center px-8 py-4 text-white border-2 border-white/30 rounded-full hover:bg-white/10 hover:border-white transition-all duration-300 group">
                     <Play className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform duration-300" />
-                    Virtual Tour Demo
+                    See Sample Work
                   </button>
                 </motion.div>
 
@@ -153,7 +155,7 @@ const Hero: React.FC = () => {
                     <div className="text-3xl font-bold text-white mb-2">
                       {slide.stats.projects}
                     </div>
-                    <div className="text-white/70 text-sm">Properties Shot</div>
+                    <div className="text-white/70 text-sm">Properties Sold</div>
                   </div>
                   <div className="text-center">
                     <div className="text-3xl font-bold text-white mb-2">
@@ -165,7 +167,7 @@ const Hero: React.FC = () => {
                     <div className="text-3xl font-bold text-white mb-2">
                       {slide.stats.clients}
                     </div>
-                    <div className="text-white/70 text-sm">Happy Clients</div>
+                    <div className="text-white/70 text-sm">Agent Partners</div>
                   </div>
                 </motion.div>
               </motion.div>
@@ -204,10 +206,75 @@ const Hero: React.FC = () => {
         </div>
       </motion.button>
 
-      {/* Decorative Elements */}
-      <div className="absolute top-1/4 right-10 w-20 h-20 bg-accent/20 rounded-full animate-float" />
-      <div className="absolute bottom-1/4 left-10 w-16 h-16 bg-white/10 rounded-full animate-float" style={{ animationDelay: '2s' }} />
-      <div className="absolute top-1/2 right-1/4 w-12 h-12 bg-accent/30 rounded-full animate-float" style={{ animationDelay: '4s' }} />
+      {/* Enhanced Decorative Elements */}
+      <motion.div
+        className="absolute top-1/4 right-10 w-20 h-20 bg-accent/20 rounded-full backdrop-blur-sm"
+        animate={{
+          y: [0, -15, 0],
+          scale: [1, 1.1, 1],
+          opacity: [0.7, 1, 0.7],
+        }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+      <motion.div
+        className="absolute bottom-1/4 left-10 w-16 h-16 bg-white/10 rounded-full backdrop-blur-sm border border-white/20"
+        animate={{
+          y: [0, 10, 0],
+          x: [0, 5, 0],
+          rotate: [0, 180, 360],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 2,
+        }}
+      />
+      <motion.div
+        className="absolute top-1/2 right-1/4 w-12 h-12 bg-accent/30 rounded-full backdrop-blur-sm shadow-lg"
+        animate={{
+          scale: [1, 1.3, 1],
+          opacity: [0.8, 1, 0.8],
+          rotate: [0, -180, 0],
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 4,
+        }}
+      />
+      <motion.div
+        className="absolute top-20 left-1/3 w-8 h-8 bg-white/15 rounded-full backdrop-blur-sm"
+        animate={{
+          y: [0, -8, 0],
+          x: [0, 8, 0],
+          scale: [1, 1.2, 1],
+        }}
+        transition={{
+          duration: 5,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 1,
+        }}
+      />
+      <motion.div
+        className="absolute bottom-32 right-1/3 w-14 h-14 bg-accent/25 rounded-full backdrop-blur-sm border border-accent/30"
+        animate={{
+          rotate: [0, 360],
+          scale: [1, 1.1, 1],
+        }}
+        transition={{
+          duration: 12,
+          repeat: Infinity,
+          ease: "linear",
+          delay: 3,
+        }}
+      />
     </section>
   );
 };

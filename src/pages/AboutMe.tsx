@@ -6,18 +6,29 @@ const AboutMe: React.FC = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative py-32 bg-gradient-to-br from-gray-900 to-gray-800">
-        <div className="container mx-auto px-4">
+      <section className="relative py-32 overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img
+            src="./images/About me/About.webp"
+            alt="Photographer at work"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-gray-800/80" />
+        </div>
+
+
+        <div className="container mx-auto px-4 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h1 className="text-5xl font-bold text-white mb-6">About Marcos Borges</h1>
+              <h1 className="text-5xl font-bold text-white mb-6">Your Partner for Winning Listings</h1>
               <p className="text-xl text-gray-300 mb-8">
-                Professional photographer specializing in real estate, architecture, and commercial photography.
-                Based in Denmark, serving clients across Europe.
+                Trusted by Denmark's top real estate agents to create photography that sells properties faster.
+                Over 8 years of experience helping agents win more listings and close deals quicker.
               </p>
               <div className="flex items-center space-x-6 text-gray-300">
                 <div className="flex items-center space-x-2">
@@ -39,7 +50,7 @@ const AboutMe: React.FC = () => {
             >
               <div className="w-full h-96 bg-gray-700 rounded-2xl overflow-hidden">
                 <img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                  src="./images/About me/About.webp"
                   alt="Marcos Borges"
                   className="w-full h-full object-cover"
                 />
@@ -63,12 +74,11 @@ const AboutMe: React.FC = () => {
               viewport={{ once: true }}
               className="text-center mb-16"
             >
-              <h2 className="text-4xl font-bold text-dark mb-6">My Story</h2>
+              <h2 className="text-4xl font-bold text-dark mb-6">Why Agents Choose Me</h2>
               <p className="text-lg text-gray-600 leading-relaxed">
-                With over 8 years of experience in professional photography, I've developed a keen eye for capturing
-                the essence of architectural spaces and real estate properties. My journey began with a passion for
-                visual storytelling and has evolved into a specialized practice serving real estate professionals,
-                architects, and property developers across Denmark and Europe.
+                After 8 years in real estate photography, I understand what sells properties. I've worked with over 50 agents
+                to photograph 500+ properties, resulting in faster sales and higher offers. My specialized approach focuses on
+                creating images that generate immediate buyer interest and help you stand out in competitive markets.
               </p>
             </motion.div>
 
@@ -79,24 +89,24 @@ const AboutMe: React.FC = () => {
                 transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
               >
-                <h3 className="text-2xl font-semibold text-dark mb-4">Professional Approach</h3>
+                <h3 className="text-2xl font-semibold text-dark mb-4">Agent-Focused Service</h3>
                 <p className="text-gray-600 mb-6">
-                  Every project begins with understanding the unique character of each property. I combine technical
-                  expertise with creative vision to produce images that not only showcase spaces beautifully but also
-                  help properties sell faster and at better prices.
+                  I understand your business challenges: tight schedules, demanding clients, and competitive markets.
+                  My photography service is designed specifically for real estate agents who need reliable, high-quality
+                  results that help win listings and sell properties faster.
                 </p>
                 <ul className="space-y-2 text-gray-600">
                   <li className="flex items-center space-x-3">
                     <div className="w-2 h-2 bg-accent rounded-full"></div>
-                    <span>Detailed pre-shoot consultation</span>
+                    <span>24-48 hour guaranteed delivery</span>
                   </li>
                   <li className="flex items-center space-x-3">
                     <div className="w-2 h-2 bg-accent rounded-full"></div>
-                    <span>Professional lighting setup</span>
+                    <span>Flexible scheduling for urgent listings</span>
                   </li>
                   <li className="flex items-center space-x-3">
                     <div className="w-2 h-2 bg-accent rounded-full"></div>
-                    <span>Fast turnaround time</span>
+                    <span>Marketing-ready image packages</span>
                   </li>
                 </ul>
               </motion.div>
@@ -107,23 +117,24 @@ const AboutMe: React.FC = () => {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 viewport={{ once: true }}
               >
-                <h3 className="text-2xl font-semibold text-dark mb-4">Specializations</h3>
+                <h3 className="text-2xl font-semibold text-dark mb-4">Proven Results</h3>
                 <p className="text-gray-600 mb-6">
-                  My expertise spans various types of architectural and real estate photography, always focusing on
-                  delivering images that exceed client expectations and help achieve their marketing goals.
+                  My photography consistently delivers measurable results for agents: increased online engagement,
+                  more viewing requests, and faster sales. I track these metrics to continuously improve my service
+                  and help you achieve better outcomes for your clients.
                 </p>
                 <ul className="space-y-2 text-gray-600">
                   <li className="flex items-center space-x-3">
                     <div className="w-2 h-2 bg-accent rounded-full"></div>
-                    <span>Luxury residential properties</span>
+                    <span>40% faster average sale times</span>
                   </li>
                   <li className="flex items-center space-x-3">
                     <div className="w-2 h-2 bg-accent rounded-full"></div>
-                    <span>Commercial real estate</span>
+                    <span>67% more online inquiries</span>
                   </li>
                   <li className="flex items-center space-x-3">
                     <div className="w-2 h-2 bg-accent rounded-full"></div>
-                    <span>Architectural documentation</span>
+                    <span>Higher offer values on listings</span>
                   </li>
                 </ul>
               </motion.div>
@@ -133,8 +144,12 @@ const AboutMe: React.FC = () => {
       </section>
 
       {/* Experience & Awards */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
+      <section className="py-20 bg-gray-50 relative overflow-hidden">
+        {/* Minimal Decorative Shapes */}
+        <div className="absolute top-20 right-10 w-16 h-16 bg-accent/10 rounded-full" />
+        <div className="absolute bottom-20 left-20 w-12 h-12 bg-gray-200/30 rounded-full" />
+
+        <div className="container mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -142,7 +157,7 @@ const AboutMe: React.FC = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold text-dark mb-6">Experience & Recognition</h2>
+            <h2 className="text-4xl font-bold text-dark mb-6">Track Record & Results</h2>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -201,9 +216,9 @@ const AboutMe: React.FC = () => {
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-4xl font-bold text-dark mb-8">Let's Work Together</h2>
+              <h2 className="text-4xl font-bold text-dark mb-8">Ready to Win More Listings?</h2>
               <p className="text-lg text-gray-600 mb-12">
-                Ready to showcase your property with professional photography? Get in touch to discuss your project.
+                Join 50+ successful agents who trust me with their property photography. Let's discuss how professional images can transform your listings and accelerate your sales.
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

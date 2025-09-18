@@ -79,6 +79,23 @@
   .glass-effect {
     @apply bg-white/10 backdrop-blur-md border border-white/20;
   }
+
+  /* Decorative Elements */
+  .decorative-shape {
+    @apply backdrop-blur-sm bg-gradient-to-br shadow-lg;
+  }
+
+  .decorative-shape-light {
+    @apply from-white/10 to-white/5 border border-white/20;
+  }
+
+  .decorative-shape-accent {
+    @apply from-accent/20 to-accent/10 border border-accent/30;
+  }
+
+  .decorative-shape-dark {
+    @apply from-gray-800/20 to-gray-900/10 border border-gray-700/30;
+  }
 }
 
 @layer utilities {

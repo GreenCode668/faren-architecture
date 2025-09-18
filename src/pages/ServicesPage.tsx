@@ -8,8 +8,8 @@ const ServicesPage: React.FC = () => {
       id: 1,
       icon: <Home className="w-8 h-8" />,
       title: 'Residential Photography',
-      description: 'Professional interior and exterior photography for homes, apartments, and condominiums.',
-      features: ['HDR Photography', 'Twilight Shots', 'Detail Shots', 'Wide-Angle Interiors'],
+      description: 'Professional photography that makes homes irresistible to buyers. Perfect for listings that need to stand out and sell quickly.',
+      features: ['HDR Photography for Perfect Lighting', 'Twilight Shots for Dramatic Appeal', 'Detail Shots of Key Features', 'Wide-Angle Interiors for Spacious Feel'],
       price: 'From 2,500 DKK',
       duration: '2-3 hours',
       images: 15
@@ -18,8 +18,8 @@ const ServicesPage: React.FC = () => {
       id: 2,
       icon: <Building className="w-8 h-8" />,
       title: 'Commercial Real Estate',
-      description: 'Comprehensive photography for office buildings, retail spaces, and commercial properties.',
-      features: ['Architectural Details', 'Business Environment', 'Signage & Branding', 'Accessibility Features'],
+      description: 'Professional commercial photography that showcases investment potential and attracts serious buyers and tenants.',
+      features: ['Architectural Details That Impress', 'Professional Business Environment', 'Prominent Signage & Branding', 'Accessibility & Safety Features'],
       price: 'From 4,500 DKK',
       duration: '3-5 hours',
       images: 25
@@ -28,8 +28,8 @@ const ServicesPage: React.FC = () => {
       id: 3,
       icon: <Plane className="w-8 h-8" />,
       title: 'Aerial & Drone Photography',
-      description: 'Stunning aerial perspectives that showcase properties and their surroundings.',
-      features: ['4K Video Capability', 'Property Boundaries', 'Neighborhood Context', 'Weather Permitting'],
+      description: 'Breathtaking aerial views that highlight property boundaries, privacy, and location advantages buyers love.',
+      features: ['4K Video for Virtual Tours', 'Clear Property Boundaries', 'Attractive Neighborhood Context', 'Multiple Angle Options'],
       price: 'From 2,000 DKK',
       duration: '1-2 hours',
       images: 10
@@ -38,8 +38,8 @@ const ServicesPage: React.FC = () => {
       id: 4,
       icon: <Video className="w-8 h-8" />,
       title: 'Virtual Tours',
-      description: '360-degree immersive tours that allow potential buyers to explore properties online.',
-      features: ['Interactive Navigation', 'Floor Plan Integration', 'Info Hotspots', 'Mobile Compatible'],
+      description: 'Interactive 360° tours that pre-qualify buyers and generate more serious inquiries for your listings.',
+      features: ['Seamless Interactive Navigation', 'Integrated Floor Plans', 'Custom Information Hotspots', 'Mobile & Desktop Compatible'],
       price: 'From 3,500 DKK',
       duration: '3-4 hours',
       images: 'Virtual'
@@ -49,8 +49,8 @@ const ServicesPage: React.FC = () => {
       icon: <Camera className="w-8 h-8" />,
       title: 'Luxury Estate Photography',
       subtitle: 'Premium service for high-end properties',
-      description: 'Comprehensive photography package for luxury homes and exclusive properties.',
-      features: ['Professional Styling Consultation', 'Twilight & Day Shots', 'Aerial Photography', 'Virtual Tour Included'],
+      description: 'Complete luxury photography package that justifies premium pricing and attracts qualified high-end buyers.',
+      features: ['Professional Styling Consultation', 'Stunning Twilight & Day Shots', 'Dramatic Aerial Photography', 'Premium Virtual Tour Included'],
       price: 'From 8,500 DKK',
       duration: 'Full day',
       images: 50
@@ -59,9 +59,9 @@ const ServicesPage: React.FC = () => {
       id: 6,
       icon: <Star className="w-8 h-8" />,
       title: 'Rush Service',
-      subtitle: '24-48 hour delivery',
-      description: 'Fast-track photography service for urgent listings with guaranteed quick delivery.',
-      features: ['Priority Scheduling', '24-48h Delivery', 'Same Day Available', 'Premium Edit'],
+      subtitle: 'Same-day delivery available',
+      description: 'Urgent listing service for time-sensitive properties that need to go to market immediately.',
+      features: ['Priority Scheduling Within 24h', 'Same-Day Delivery Available', 'Express Processing', 'Premium Editing Included'],
       price: '+50% surcharge',
       duration: 'Flexible',
       images: 'Varies'
@@ -80,31 +80,41 @@ const ServicesPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative py-32 bg-gradient-to-br from-gray-900 to-gray-800">
-        <div className="container mx-auto px-4">
+      <section className="relative py-32 overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+            alt="Professional camera equipment"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-gray-800/80" />
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="text-center max-w-4xl mx-auto"
           >
-            <h1 className="text-5xl font-bold text-white mb-6">Professional Photography Services</h1>
+            <h1 className="text-5xl font-bold text-white mb-6">Photography That Sells Properties Faster</h1>
             <p className="text-xl text-gray-300 mb-8">
-              Comprehensive real estate and architectural photography solutions tailored to your needs.
-              Every package includes professional editing and fast delivery.
+              Comprehensive real estate photography packages designed to help agents win more listings, attract serious buyers, and close deals faster.
+              Every service includes professional editing, multiple formats, and guaranteed fast delivery.
             </p>
             <div className="flex flex-wrap justify-center gap-6 text-gray-300">
               <div className="flex items-center space-x-2">
                 <Clock className="w-5 h-5 text-accent" />
-                <span>24-48h Standard Delivery</span>
+                <span>24-48h Guaranteed Delivery</span>
               </div>
               <div className="flex items-center space-x-2">
                 <CheckCircle className="w-5 h-5 text-accent" />
-                <span>Professional Editing Included</span>
+                <span>Marketing-Ready Images</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Star className="w-5 h-5 text-accent" />
-                <span>Satisfaction Guaranteed</span>
+                <span>More Showings Guaranteed</span>
               </div>
             </div>
           </motion.div>
@@ -121,10 +131,10 @@ const ServicesPage: React.FC = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold text-dark mb-6">Photography Services</h2>
+            <h2 className="text-4xl font-bold text-dark mb-6">Services That Drive Results</h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Choose from our range of professional photography services designed to showcase properties at their best.
-              All packages include high-resolution images, professional editing, and online gallery delivery.
+              Each service is specifically designed to help real estate agents attract more qualified buyers and sell properties faster.
+              All packages include MLS-ready images, social media formats, and everything you need to market effectively.
             </p>
           </motion.div>
 
@@ -177,7 +187,7 @@ const ServicesPage: React.FC = () => {
                 </div>
 
                 <button className="w-full mt-6 bg-accent text-white py-3 px-6 rounded-lg hover:bg-accent/90 transition-colors duration-300">
-                  Book This Service
+                  Get More Listings
                 </button>
               </motion.div>
             ))}
@@ -289,16 +299,16 @@ const ServicesPage: React.FC = () => {
             viewport={{ once: true }}
             className="text-center"
           >
-            <h2 className="text-4xl font-bold text-white mb-6">Ready to Get Started?</h2>
+            <h2 className="text-4xl font-bold text-white mb-6">Ready to Sell Properties Faster?</h2>
             <p className="text-xl text-white/90 mb-8 max-w-3xl mx-auto">
-              Contact me today to discuss your photography needs and schedule your session.
+              Join 50+ successful agents who use professional photography to win more listings and close deals faster. Let's discuss your upcoming properties.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button className="bg-white text-accent px-8 py-4 rounded-lg font-medium hover:bg-gray-100 transition-colors duration-300">
-                Book Now
+                Schedule Your Shoot
               </button>
               <button className="border-2 border-white text-white px-8 py-4 rounded-lg font-medium hover:bg-white hover:text-accent transition-colors duration-300">
-                Get Quote
+                Get Agent Pricing
               </button>
             </div>
           </motion.div>

@@ -37,11 +37,11 @@ const Testimonials: React.FC = () => {
             Client Testimonials
           </p>
           <h2 className="heading-lg text-white mb-6 max-w-3xl mx-auto">
-            Real Estate Professionals Love My Work
+            Agents Are Closing More Deals
           </h2>
           <p className="text-lg text-white/70 max-w-2xl mx-auto leading-relaxed">
-            Don't just take my word for it. Hear from real estate agents and
-            property managers who have seen amazing results with my photography.
+            See how professional photography has transformed these agents' businesses,
+            helping them win more listings and sell properties faster than ever before.
           </p>
         </motion.div>
 

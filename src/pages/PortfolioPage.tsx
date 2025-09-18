@@ -78,7 +78,7 @@ const PortfolioPage: React.FC = () => {
       location: 'Copenhagen, Denmark',
       year: '2023',
       description: 'Beautiful renovation of 19th-century townhouse blending historic charm with modern amenities.',
-      image: 'https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
       images: 35,
       featured: false
     },
@@ -124,8 +124,23 @@ const PortfolioPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative py-32 bg-gradient-to-br from-gray-900 to-gray-800">
-        <div className="container mx-auto px-4">
+      <section className="relative py-32 overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+            alt="Professional portfolio showcase"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-gray-800/80" />
+        </div>
+
+        {/* Decorative Shapes */}
+        <div className="absolute top-20 left-10 w-20 h-20 bg-accent/20 rounded-full backdrop-blur-sm animate-float" />
+        <div className="absolute bottom-20 right-20 w-16 h-16 bg-white/10 rounded-full backdrop-blur-sm animate-pulse" />
+        <div className="absolute top-1/2 left-1/4 w-12 h-12 bg-accent/30 rounded-full backdrop-blur-sm" />
+
+        <div className="container mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -330,16 +345,16 @@ const PortfolioPage: React.FC = () => {
             viewport={{ once: true }}
             className="text-center max-w-3xl mx-auto"
           >
-            <h2 className="text-4xl font-bold text-dark mb-6">Ready to Showcase Your Property?</h2>
+            <h2 className="text-4xl font-bold text-dark mb-6">Ready to Win Your Next Listing?</h2>
             <p className="text-lg text-gray-600 mb-8">
-              Let's create stunning photography that helps your property stand out in the market.
+              Show potential sellers how professional photography can make their property irresistible to buyers and sell for top dollar.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button className="bg-accent text-white px-8 py-4 rounded-lg font-medium hover:bg-accent/90 transition-colors duration-300">
-                Book a Session
+                Schedule Property Shoot
               </button>
               <button className="border-2 border-accent text-accent px-8 py-4 rounded-lg font-medium hover:bg-accent hover:text-white transition-colors duration-300">
-                View More Work
+                Get Agent Discount
               </button>
             </div>
           </motion.div>

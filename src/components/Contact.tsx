@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, Clock, CheckCircle } from 'lucide-react';
+import BackgroundShapes from './BackgroundShapes';
 import type { ContactForm } from '../types';
 
 const Contact: React.FC = () => {
@@ -74,8 +75,11 @@ const Contact: React.FC = () => {
   ];
 
   return (
-    <section id="contact" className="section-padding bg-smoke-light">
-      <div className="container-custom">
+    <section id="contact" className="section-padding bg-smoke-light relative overflow-hidden">
+      {/* Decorative Background Shapes */}
+      <BackgroundShapes density="light" colorScheme="accent" />
+
+      <div className="container-custom relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
