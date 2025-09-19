@@ -97,10 +97,14 @@ export interface User {
   email: string;
   firstName: string;
   lastName: string;
+  isVerified: boolean;
+}
+
+export interface Broker {
+  id: string;
   companyName: string;
   brokerLicense: string;
-  isVerified: boolean;
-  createdAt: Date;
+  verificationStatus: 'pending' | 'verified' | 'rejected';
 }
 
 export interface ServicePackage {

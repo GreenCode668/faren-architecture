@@ -22,28 +22,28 @@ const Auth: React.FC<AuthProps> = ({ isOpen, onClose, mode, onSwitchMode }) => {
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const [loginForm, setLoginForm] = useState<BrokerLoginForm>({
-    email: '',
-    password: '',
+    email: import.meta.env.DEV ? 'john.doe@example.com' : '',
+    password: import.meta.env.DEV ? 'Password123!' : '',
     rememberMe: false,
   });
 
   const [registrationForm, setRegistrationForm] = useState<BrokerRegistrationForm>({
-    email: '',
-    phone: '',
-    companyName: '',
-    brokerLicense: '',
-    firstName: '',
-    lastName: '',
-    password: '',
-    confirmPassword: '',
-    acceptTerms: false,
-    acceptPrivacy: false,
-    marketingConsent: false,
+    email: import.meta.env.DEV ? 'jane.smith@realty.com' : '',
+    phone: import.meta.env.DEV ? '+1 (555) 123-4567' : '',
+    companyName: import.meta.env.DEV ? 'Smith Realty Group' : '',
+    brokerLicense: import.meta.env.DEV ? 'BRE#12345678' : '',
+    firstName: import.meta.env.DEV ? 'Jane' : '',
+    lastName: import.meta.env.DEV ? 'Smith' : '',
+    password: import.meta.env.DEV ? 'Password123!' : '',
+    confirmPassword: import.meta.env.DEV ? 'Password123!' : '',
+    acceptTerms: import.meta.env.DEV ? true : false,
+    acceptPrivacy: import.meta.env.DEV ? true : false,
+    marketingConsent: import.meta.env.DEV ? true : false,
     verificationMethod: 'email',
   });
 
   const [otpForm, setOtpForm] = useState({
-    code: '',
+    code: import.meta.env.DEV ? '123456' : '',
     timeLeft: 300, // 5 minutes
   });
 

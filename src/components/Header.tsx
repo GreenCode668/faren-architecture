@@ -6,12 +6,14 @@ import { navItems } from '../data/mockData';
 import { cn } from '../utils/cn';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import { logout } from '../store/slices/authSlice';
+import { useNotification } from '../hooks/useNotification';
 import Auth from './Auth';
 
 const Header: React.FC = () => {
   const dispatch = useAppDispatch();
   const { isAuthenticated, user } = useAppSelector((state) => state.auth);
   const location = useLocation();
+  const { showWarningAlert } = useNotification();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -61,6 +63,27 @@ const Header: React.FC = () => {
     const nextIndex = (currentIndex + 1) % languages.length;
     setCurrentLanguage(languages[nextIndex]);
     console.log('Language changed to:', languages[nextIndex]);
+  };
+
+  const handleBookNowClick = () => {
+    if (!isAuthenticated) {
+      showWarningAlert(
+        'Sign Up Required',
+        'Please create an account or sign in to book a photography session. Registration is quick and free!',
+        {
+          confirmButtonText: 'Sign Up Now',
+          showCancelButton: true,
+          cancelButtonText: 'Maybe Later'
+        }
+      ).then((result) => {
+        if (result.isConfirmed) {
+          setAuthMode('register');
+          setShowAuth(true);
+        }
+      });
+      return;
+    }
+    // If authenticated, proceed with navigation (handled by Link wrapper)
   };
 
   return (
@@ -197,23 +220,39 @@ const Header: React.FC = () => {
 
             {/* Reservation Button */}
             <div className="hidden lg:flex items-center space-x-4">
-              <Link to="/reservation">
+              {isAuthenticated ? (
+                <Link to="/reservation">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={cn(
+                      'px-4 py-2 rounded-lg transition-all duration-300 font-medium flex items-center space-x-2',
+                      isActivePath('/reservation')
+                        ? 'bg-accent text-white'
+                        : isScrolled
+                        ? 'bg-accent text-white hover:bg-accent/90'
+                        : 'bg-accent text-white hover:bg-accent/90'
+                    )}
+                  >
+                    <Camera className="w-4 h-4" />
+                    <span>Book Now</span>
+                  </motion.button>
+                </Link>
+              ) : (
                 <motion.button
+                  onClick={handleBookNowClick}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className={cn(
                     'px-4 py-2 rounded-lg transition-all duration-300 font-medium flex items-center space-x-2',
-                    isActivePath('/reservation')
-                      ? 'bg-accent text-white'
-                      : isScrolled
-                      ? 'bg-accent text-white hover:bg-accent/90'
-                      : 'bg-accent text-white hover:bg-accent/90'
+                    'bg-gray-400 text-white cursor-not-allowed opacity-75 hover:opacity-90'
                   )}
+                  // disabled={!isAuthenticated}
                 >
                   <Camera className="w-4 h-4" />
                   <span>Book Now</span>
                 </motion.button>
-              </Link>
+              )}
             </div>
 
             {/* Action Buttons */}
@@ -478,55 +517,118 @@ const Header: React.FC = () => {
 
                 {/* Mobile Reservation Button */}
                 <div className="mt-6">
-                  <Link to="/reservation" onClick={() => setIsMobileMenuOpen(false)}>
+                  {isAuthenticated ? (
+                    <Link to="/reservation" onClick={() => setIsMobileMenuOpen(false)}>
+                      <motion.button
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="w-full flex items-center justify-center space-x-2 p-4 rounded-lg bg-accent text-white font-medium shadow-lg hover:bg-accent/90 transition-all duration-300"
+                      >
+                        <Camera className="w-5 h-5" />
+                        <span>Book Photography Session</span>
+                      </motion.button>
+                    </Link>
+                  ) : (
                     <motion.button
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        handleBookNowClick();
+                      }}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
-                      className="w-full flex items-center justify-center space-x-2 p-4 rounded-lg bg-accent text-white font-medium shadow-lg hover:bg-accent/90 transition-all duration-300"
+                      className="w-full flex items-center justify-center space-x-2 p-4 rounded-lg bg-gray-400 text-white font-medium shadow-lg cursor-not-allowed opacity-75 hover:opacity-90 transition-all duration-300"
+                      disabled={!isAuthenticated}
                     >
                       <Camera className="w-5 h-5" />
                       <span>Book Photography Session</span>
                     </motion.button>
-                  </Link>
+                  )}
                 </div>
 
-                <div className="mt-8 pt-8 border-t border-gray-200">
-                  <div className="grid grid-cols-2 gap-3">
-                    {/* Registration Button */}
-                    <motion.button
-                      onClick={handleRegistration}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="flex items-center justify-center space-x-2 p-3 rounded-lg bg-accent/10 text-accent hover:bg-accent hover:text-white transition-all duration-300"
-                    >
-                      <UserPlus className="w-4 h-4" />
-                      <span className="text-sm font-medium">Register</span>
-                    </motion.button>
+                {!isAuthenticated && (
+                  <div className="mt-8 pt-8 border-t border-gray-200">
+                    <div className="grid grid-cols-2 gap-3">
+                      {/* Registration Button */}
+                      <motion.button
+                        onClick={handleRegistration}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="flex items-center justify-center space-x-2 p-3 rounded-lg bg-accent/10 text-accent hover:bg-accent hover:text-white transition-all duration-300"
+                      >
+                        <UserPlus className="w-4 h-4" />
+                        <span className="text-sm font-medium">Register</span>
+                      </motion.button>
 
-                    {/* Signup Button */}
-                    <motion.button
-                      onClick={handleSignup}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="flex items-center justify-center space-x-2 p-3 rounded-lg bg-accent/10 text-accent hover:bg-accent hover:text-white transition-all duration-300"
-                    >
-                      <LogIn className="w-4 h-4" />
-                      <span className="text-sm font-medium">Sign Up</span>
-                    </motion.button>
+                      {/* Signup Button */}
+                      <motion.button
+                        onClick={handleSignup}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="flex items-center justify-center space-x-2 p-3 rounded-lg bg-accent/10 text-accent hover:bg-accent hover:text-white transition-all duration-300"
+                      >
+                        <LogIn className="w-4 h-4" />
+                        <span className="text-sm font-medium">Sign Up</span>
+                      </motion.button>
+                    </div>
 
-
-                    {/* Language Selection */}
-                    <motion.button
-                      onClick={toggleLanguage}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="flex items-center justify-center space-x-2 p-3 rounded-lg bg-accent/10 text-accent hover:bg-accent hover:text-white transition-all duration-300"
-                    >
-                      <Globe className="w-4 h-4" />
-                      <span className="text-sm font-medium">{currentLanguage}</span>
-                    </motion.button>
+                    {/* Language Selection - Always visible */}
+                    <div className="mt-3">
+                      <motion.button
+                        onClick={toggleLanguage}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="w-full flex items-center justify-center space-x-2 p-3 rounded-lg bg-accent/10 text-accent hover:bg-accent hover:text-white transition-all duration-300"
+                      >
+                        <Globe className="w-4 h-4" />
+                        <span className="text-sm font-medium">{currentLanguage}</span>
+                      </motion.button>
+                    </div>
                   </div>
-                </div>
+                )}
+
+                {/* Show user info and logout when authenticated */}
+                {isAuthenticated && (
+                  <div className="mt-8 pt-8 border-t border-gray-200">
+                    <div className="flex items-center space-x-3 p-4 rounded-lg bg-accent/10">
+                      <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center">
+                        <User className="w-5 h-5 text-white" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-medium text-dark">
+                          {user?.firstName} {user?.lastName}
+                        </p>
+                        <p className="text-sm text-gray-600">
+                          {user?.companyName}
+                        </p>
+                      </div>
+                      <motion.button
+                        onClick={() => {
+                          dispatch(logout());
+                          setIsMobileMenuOpen(false);
+                        }}
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="p-2 rounded-lg text-red-600 hover:bg-red-50 transition-all duration-300"
+                        title="Logout"
+                      >
+                        <LogOut className="w-5 h-5" />
+                      </motion.button>
+                    </div>
+
+                    {/* Language Selection for authenticated users */}
+                    <div className="mt-3">
+                      <motion.button
+                        onClick={toggleLanguage}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="w-full flex items-center justify-center space-x-2 p-3 rounded-lg bg-accent/10 text-accent hover:bg-accent hover:text-white transition-all duration-300"
+                      >
+                        <Globe className="w-4 h-4" />
+                        <span className="text-sm font-medium">{currentLanguage}</span>
+                      </motion.button>
+                    </div>
+                  </div>
+                )}
               </div>
             </motion.div>
           </motion.div>

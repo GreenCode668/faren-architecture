@@ -5,6 +5,8 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import CustomCursor from './components/CustomCursor';
 import Reservations from './components/Reservations';
+import NotificationProvider from './components/NotificationProvider';
+import DevHelper from './components/DevHelper';
 import Home from './pages/Home';
 import ServicesPage from './pages/ServicesPage';
 import PortfolioPage from './pages/PortfolioPage';
@@ -71,7 +73,10 @@ function App() {
   return (
     <Provider store={store}>
       <Router>
-        <AppContent />
+        <NotificationProvider>
+          <AppContent />
+          <DevHelper />
+        </NotificationProvider>
       </Router>
     </Provider>
   );

@@ -11,16 +11,16 @@ const StepPropertyInfo: React.FC = () => {
   const { reservationData } = useAppSelector((state) => state.reservation);
 
   const [propertyInfoState, setPropertyInfoState] = useState<PropertyInfo>({
-    caseNumber: '',
+    caseNumber: import.meta.env.DEV ? 'RE-2024-001' : '',
     address: {
-      street: '',
-      postalCode: '',
-      city: '',
+      street: import.meta.env.DEV ? '123 Main Street, Unit 4B' : '',
+      postalCode: import.meta.env.DEV ? '90210' : '',
+      city: import.meta.env.DEV ? 'Beverly Hills' : '',
     },
-    area: 0,
+    area: import.meta.env.DEV ? 2500 : 0,
     occupancyStatus: 'vacant',
-    accessMethod: 'personal',
-    accessInstructions: '',
+    accessMethod: 'key_box',
+    accessInstructions: import.meta.env.DEV ? 'Key box is located on the left side of the front door. Code is 1234. Please reset after use.' : '',
     ...reservationData.propertyInfo,
   });
 

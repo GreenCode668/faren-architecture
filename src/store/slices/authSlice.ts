@@ -1,63 +1,56 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit';
 import type { User, BrokerRegistrationForm } from '../../types';
+import authService, { type LoginCredentials, type RegisterData, type Broker } from '../../services/authService';
 
 interface AuthState {
   user: User | null;
+  broker: Broker | null;
   isAuthenticated: boolean;
   isLoading: boolean;
   error: string | null;
+  needsVerification: boolean;
 }
 
 const initialState: AuthState = {
   user: null,
+  broker: null,
   isAuthenticated: false,
   isLoading: false,
   error: null,
+  needsVerification: false,
 };
 
 // Async thunks for auth operations
 export const login = createAsyncThunk(
   'auth/login',
-  async ({ email }: { email: string; password: string }, { rejectWithValue }) => {
+  async (credentials: LoginCredentials, { rejectWithValue }) => {
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      const response = await authService.login(credentials);
 
-      // Mock successful login - in real app, this would come from API
-      const userData: User = {
-        id: 'user_123',
-        email,
-        firstName: 'John',
-        lastName: 'Doe',
-        companyName: 'ABC Realty Group',
-        brokerLicense: 'BRE# 12345678',
-        isVerified: true,
-        createdAt: new Date(),
-      };
-
-      // Store in localStorage
-      localStorage.setItem('broker_user', JSON.stringify(userData));
-
-      return userData;
-    } catch {
-      return rejectWithValue('Login failed. Please check your credentials.');
+      if (response.success && response.data) {
+        return response.data;
+      } else {
+        return rejectWithValue(response.error || response.message);
+      }
+    } catch (error: any) {
+      return rejectWithValue(error.message || 'Login failed. Please check your credentials.');
     }
   }
 );
 
 export const register = createAsyncThunk(
   'auth/register',
-  async (userData: BrokerRegistrationForm, { rejectWithValue }) => {
+  async (userData: RegisterData, { rejectWithValue }) => {
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      const response = await authService.register(userData);
 
-      // In real app, this would create account and require verification
-      console.log('Registration data:', userData);
-
-      return userData;
-    } catch {
-      return rejectWithValue('Registration failed. Please try again.');
+      if (response.success && response.data) {
+        return response.data;
+      } else {
+        return rejectWithValue(response.error || response.message);
+      }
+    } catch (error: any) {
+      return rejectWithValue(error.message || 'Registration failed. Please try again.');
     }
   }
 );
@@ -66,15 +59,15 @@ export const verifyOTP = createAsyncThunk(
   'auth/verifyOTP',
   async (code: string, { rejectWithValue }) => {
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const response = await authService.verifyOTP(code);
 
-      // Mock successful verification
-      console.log('OTP verified:', code);
-
-      return code;
-    } catch {
-      return rejectWithValue('Invalid verification code.');
+      if (response.success && response.data) {
+        return response.data;
+      } else {
+        return rejectWithValue(response.error || response.message);
+      }
+    } catch (error: any) {
+      return rejectWithValue(error.message || 'Invalid verification code.');
     }
   }
 );
@@ -83,14 +76,39 @@ export const checkAuthStatus = createAsyncThunk(
   'auth/checkAuthStatus',
   async (_, { rejectWithValue }) => {
     try {
-      const storedUser = localStorage.getItem('broker_user');
-      if (storedUser) {
-        return JSON.parse(storedUser) as User;
+      const response = await authService.checkAuthStatus();
+
+      if (response?.success && response.data) {
+        return response.data;
       }
+
+      // Check for stored data as fallback
+      const storedData = authService.getStoredUserData();
+      if (storedData && authService.isAuthenticated()) {
+        return storedData;
+      }
+
       return null;
-    } catch {
-      localStorage.removeItem('broker_user');
+    } catch (error) {
+      authService.clearAuthData();
       return rejectWithValue('Failed to restore session');
+    }
+  }
+);
+
+export const resendOTP = createAsyncThunk(
+  'auth/resendOTP',
+  async (type: 'email' | 'sms', { rejectWithValue }) => {
+    try {
+      const response = await authService.resendOTP(type);
+
+      if (response.success) {
+        return { type, sent: true };
+      } else {
+        return rejectWithValue(response.error || response.message);
+      }
+    } catch (error: any) {
+      return rejectWithValue(error.message || 'Failed to resend verification code.');
     }
   }
 );
@@ -101,18 +119,22 @@ const authSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.user = null;
+      state.broker = null;
       state.isAuthenticated = false;
+      state.needsVerification = false;
       state.error = null;
-      localStorage.removeItem('broker_user');
+      authService.clearAuthData();
     },
 
     clearError: (state) => {
       state.error = null;
     },
 
-    setUser: (state, action: PayloadAction<User>) => {
-      state.user = action.payload;
+    setUser: (state, action: PayloadAction<{ user: User; broker: Broker }>) => {
+      state.user = action.payload.user;
+      state.broker = action.payload.broker;
       state.isAuthenticated = true;
+      state.needsVerification = !action.payload.user.isVerified;
       state.error = null;
     },
   },
@@ -125,8 +147,10 @@ const authSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.user = action.payload;
+        state.user = action.payload.user;
+        state.broker = action.payload.broker;
         state.isAuthenticated = true;
+        state.needsVerification = !action.payload.user.isVerified;
         state.error = null;
       })
       .addCase(login.rejected, (state, action) => {
@@ -140,8 +164,12 @@ const authSlice = createSlice({
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(register.fulfilled, (state) => {
+      .addCase(register.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.user = action.payload.user;
+        state.broker = action.payload.broker;
+        state.isAuthenticated = false;
+        state.needsVerification = action.payload.needsVerification || false;
         state.error = null;
       })
       .addCase(register.rejected, (state, action) => {
@@ -155,8 +183,13 @@ const authSlice = createSlice({
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(verifyOTP.fulfilled, (state) => {
+      .addCase(verifyOTP.fulfilled, (state, action) => {
         state.isLoading = false;
+        if (action.payload.user) {
+          state.user = action.payload.user;
+          state.broker = action.payload.broker;
+          state.needsVerification = false;
+        }
         state.error = null;
       })
       .addCase(verifyOTP.rejected, (state, action) => {
@@ -172,14 +205,33 @@ const authSlice = createSlice({
       .addCase(checkAuthStatus.fulfilled, (state, action) => {
         state.isLoading = false;
         if (action.payload) {
-          state.user = action.payload;
+          state.user = action.payload.user;
+          state.broker = action.payload.broker;
           state.isAuthenticated = true;
+          state.needsVerification = !action.payload.user.isVerified;
         }
       })
       .addCase(checkAuthStatus.rejected, (state) => {
         state.isLoading = false;
         state.user = null;
+        state.broker = null;
         state.isAuthenticated = false;
+        state.needsVerification = false;
+      })
+
+    // Resend OTP
+    builder
+      .addCase(resendOTP.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(resendOTP.fulfilled, (state) => {
+        state.isLoading = false;
+        state.error = null;
+      })
+      .addCase(resendOTP.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload as string;
       });
   },
 });

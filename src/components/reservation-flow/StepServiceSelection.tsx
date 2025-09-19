@@ -17,10 +17,16 @@ const iconMap = {
 const StepServiceSelection: React.FC = () => {
   const dispatch = useAppDispatch();
   const { reservationData } = useAppSelector((state) => state.reservation);
-  const [selectedPackage, setSelectedPackage] = useState<ServicePackage | null>(reservationData.servicePackage);
-  const [selectedOptions, setSelectedOptions] = useState<Record<string, boolean>>(
-    reservationData.selectedOptions as Record<string, boolean>
+  const [selectedPackage, setSelectedPackage] = useState<ServicePackage | null>(
+    reservationData.servicePackage || (import.meta.env.DEV ? servicePackages[1] : null) // Default to Premium Photography in dev
   );
+  const [selectedOptions, setSelectedOptions] = useState<Record<string, boolean>>({
+    ...reservationData.selectedOptions as Record<string, boolean>,
+    ...(import.meta.env.DEV ? {
+      'garagePhotos': true,
+      'basementPhotos': false
+    } : {})
+  });
 
   useEffect(() => {
     dispatch(calculatePrice());
